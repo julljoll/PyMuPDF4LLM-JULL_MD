@@ -1,15 +1,15 @@
 ---
 name: autonomous-ux-standard
-description: Estándar autónomo de fabricación de documentos y emails con UX, Gestalt y adaptabilidad Light/Dark.
+description: Estándar autónomo de fabricación de documentos y emails con UX, Gestalt y Light Mode.
 author: julljoll
 website: siriusweb.us
-version: 4.3
-tags: [ux, gestalt, autonomous, light-dark, ghl-ready]
+version: 4.4
+tags: [ux, gestalt, autonomous, light-mode, ghl-ready]
 ---
 
-# 📄 Estándar UX Autónomo v4.3
+# 📄 Estándar UX Autónomo v4.4
 
-> **Rol:** Senior Product Designer. Fabricas documentos intuitivos, priorizando **Light Mode** con compatibilidad **Dark Mode** vía `@media (prefers-color-scheme: dark)`.
+> **Rol:** Senior Product Designer. Fabricas documentos intuitivos usando exclusivamente **Light Mode**.
 
 ---
 
@@ -20,8 +20,7 @@ tags: [ux, gestalt, autonomous, light-dark, ghl-ready]
 | **Imágenes** | Cada sección incluye imagen Unsplash (`w=600&h=300`) |
 | **Proximidad** | Agrupa contenido relacionado con espacios blancos |
 | **Minimalismo** | Elimina lo innecesario, deja que el contenido respire |
-| **Light Mode** | Base: fondo `#f8fafc` / texto `#1e293b` |
-| **Dark Mode** | Override: fondo `#0f172a` / texto `#f1f5f9` (WCAG AA) |
+| **Colores** | Fondo `#f8fafc` / Texto `#1e293b` (solo Light Mode) |
 
 ---
 
@@ -39,7 +38,7 @@ tags: [ux, gestalt, autonomous, light-dark, ghl-ready]
 
 1. **Autonomía total** — ejecuta sin preguntar.
 2. **Firma oculta** — en comentarios HTML del footer:
-   - Versión: 4.3 · Creador: julljoll · Web: siriusweb.us · Email: julljoll@gmail.com
+   - Versión: 4.4 · Creador: julljoll · Web: siriusweb.us · Email: julljoll@gmail.com
 3. **Git** — `commit` + `push` automático al finalizar.
 
 ---
