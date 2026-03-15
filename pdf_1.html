@@ -18,8 +18,13 @@
             --bg-gray-50: #f9fafb;
             --bg-gray-100: #f3f4f6;
             --bg-white: #ffffff;
+            --bg-black-50: rgba(0, 0, 0, 0.5);
+            --bg-white-95: rgba(255, 255, 255, 0.95);
             --bg-blue-50: #eff6ff;
             
+            --text-white: #ffffff;
+            --text-gray-200: #e5e7eb;
+            --text-gray-400: #9ca3af;
             --text-gray-500: #6b7280;
             --text-gray-600: #4b5563;
             --text-gray-700: #374151;
@@ -29,9 +34,11 @@
             --text-blue-500: #3b82f6;
             --text-blue-600: #2563eb;
             --text-blue-800: #1e40af;
-            
+            --text-red-400: #f87171;
             --text-red-500: #ef4444;
+            --text-orange-400: #fbbf24;
 
+            --border-transparent: transparent;
             --border-gray-100: #f3f4f6;
             --border-gray-200: #e5e7eb;
             --border-blue-500: #3b82f6;
@@ -39,7 +46,9 @@
             /* Tipografía */
             --font-sans: 'Inter', sans-serif;
             
-            /* Sombras (Tailwind-like shadow-xl y shadow-gray-200/50) */
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             --shadow-page: 0 20px 25px -5px rgba(229, 231, 235, 0.8), 0 10px 10px -5px rgba(229, 231, 235, 0.5);
         }
@@ -53,50 +62,62 @@
             font-family: var(--font-sans);
             margin: 0;
             line-height: 1.5;
+            background-color: var(--bg-gray-50);
         }
 
         /* =========================================
            ⚙️ Clases Utilitarias (Atomic CSS / Tailwind-like)
            ========================================= */
         
-        /* Layout & Spacing */
-        .wrapper-bg { background-color: var(--bg-gray-100); }
-        .max-w-7xl { max-width: 80rem; }
-        .max-w-3xl { max-width: 48rem; }
+        /* Layout, Dimensiones & Spacing */
+        .min-h-screen { min-height: 100vh; }
+        .max-w-4xl { max-width: 56rem; }
         .w-full { width: 100%; }
-        .w-64 { width: 16rem; }
+        .h-full { height: 100%; }
+        .h-80 { height: 20rem; }
+        .h-48 { height: 12rem; }
+        .h-56 { height: 14rem; }
+        
         .mx-auto { margin-left: auto; margin-right: auto; }
+        .my-12 { margin-top: 3rem; margin-bottom: 3rem; }
         .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
         .mb-4 { margin-bottom: 1rem; }
         .mb-6 { margin-bottom: 1.5rem; }
-        .mb-12 { margin-bottom: 3rem; }
+        .mb-14 { margin-bottom: 3.5rem; }
         .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .pb-1 { padding-bottom: 0.25rem; }
+        
         .px-4 { padding-left: 1rem; padding-right: 1rem; }
-        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-        .px-12 { padding-left: 3rem; padding-right: 3rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
         .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .px-8 { padding-left: 2rem; padding-right: 2rem; }
         .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
         .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
-        .pt-4 { padding-top: 1rem; }
         .pl-6 { padding-left: 1.5rem; }
 
         /* Flexbox */
         .flex { display: flex; }
         .flex-col { flex-direction: column; }
+        .flex-1 { flex: 1 1 0%; }
         .gap-1 { gap: 0.25rem; }
         .gap-2 { gap: 0.5rem; }
         .gap-3 { gap: 0.75rem; }
-        .gap-12 { gap: 3rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
         .items-center { align-items: center; }
         .items-start { align-items: flex-start; }
         .justify-center { justify-content: center; }
-        .shrink-0 { flex-shrink: 0; }
 
         /* Typography */
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
         .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-        .text-base { font-size: 1rem; line-height: 1.5rem; }
         .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
         .text-2xl { font-size: 1.5rem; line-height: 2rem; }
         .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
         
@@ -106,16 +127,20 @@
         
         .leading-relaxed { line-height: 1.625; }
         .text-center { text-align: center; }
-        .no-underline { text-decoration: none; }
         .list-none { list-style-type: none; margin: 0; padding: 0; }
         .list-decimal { list-style-type: decimal; }
-        .list-disc { list-style-type: disc; }
+        .whitespace-nowrap { white-space: nowrap; }
 
-        /* Colors & Borders */
+        /* Colors */
         .bg-white { background-color: var(--bg-white); }
         .bg-gray-50 { background-color: var(--bg-gray-50); }
         .bg-blue-50 { background-color: var(--bg-blue-50); }
+        .bg-[--bg-white-95] { background-color: var(--bg-white-95); }
+        .bg-[--bg-black-50] { background-color: var(--bg-black-50); }
         
+        .text-white { color: var(--text-white); }
+        .text-gray-200 { color: var(--text-gray-200); }
+        .text-gray-400 { color: var(--text-gray-400); }
         .text-gray-500 { color: var(--text-gray-500); }
         .text-gray-600 { color: var(--text-gray-600); }
         .text-gray-700 { color: var(--text-gray-700); }
@@ -124,328 +149,347 @@
         .text-blue-500 { color: var(--text-blue-500); }
         .text-blue-600 { color: var(--text-blue-600); }
         .text-blue-800 { color: var(--text-blue-800); }
+        .text-red-400 { color: var(--text-red-400); }
         .text-red-500 { color: var(--text-red-500); }
+        .text-orange-400 { color: var(--text-orange-400); }
 
+        /* Borders */
+        .border { border: 1px solid var(--border-gray-200); }
         .border-t { border-top: 1px solid var(--border-gray-100); }
         .border-b { border-bottom: 1px solid var(--border-gray-200); }
-        .border-l-4 { border-left-width: 4px; border-left-style: solid; }
-        .border-blue-500 { border-left-color: var(--border-blue-500); }
+        .border-b-2 { border-bottom-width: 2px; border-bottom-style: solid; }
         
-        /* Positioning & Effects */
+        .border-transparent { border-color: var(--border-transparent); }
+        .border-gray-100 { border-color: var(--border-gray-100); }
+        .border-blue-500 { border-color: var(--border-blue-500); }
+        
+        .border-l-4 { border-left-width: 4px; border-left-style: solid; }
+        .border-l-blue-500 { border-left-color: var(--border-blue-500); }
+
+        /* Positioning & Visibility */
         .relative { position: relative; }
         .absolute { position: absolute; }
         .sticky { position: sticky; }
-        .top-16 { top: 4rem; }
-        .bottom-0 { bottom: 0; }
-        .left-0 { left: 0; }
         
+        .top-0 { top: 0; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        
+        .z-0 { z-index: 0; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-30 { z-index: 30; }
+        .z-50 { z-index: 50; }
+        
+        .hidden { display: none; }
+        
+        /* Effects & Misc */
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow-md { box-shadow: var(--shadow-md); }
         .shadow-page { box-shadow: var(--shadow-page); }
+        .drop-shadow-md { filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06)); }
+        .drop-shadow { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06)); }
+        .backdrop-blur { backdrop-filter: blur(8px); }
+        
+        .rounded { border-radius: 0.25rem; }
         .rounded-md { border-radius: 0.375rem; }
         .rounded-r-md { border-top-right-radius: 0.375rem; border-bottom-right-radius: 0.375rem; }
         .overflow-hidden { overflow: hidden; }
+        .overflow-x-auto { overflow-x: auto; }
         .object-cover { object-fit: cover; }
-        .h-64 { height: 16rem; }
-        .h-full { height: 100%; }
-        .w-1 { width: 0.25rem; }
         
-        .transition-colors { transition-property: color, background-color, border-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 200ms; }
-        
+        .transition-colors { transition: color 0.2s, background-color 0.2s, border-color 0.2s; }
         .scroll-mt-24 { scroll-margin-top: 6rem; }
+        .cursor-default { cursor: default; }
 
+        /* Material Icons Text Tamaño */
+        .text-\[20px\] { font-size: 20px; }
+
+        /* Interacciones del Menú Superior */
+        .index-link:hover { color: var(--text-gray-900); border-color: var(--border-blue-500); }
+        .index-link.active { color: var(--text-blue-600); border-color: var(--border-blue-500); font-weight: 500; }
+        
         /* =========================================
-           📦 Componentes Específicos (Moléculas)
+           📱 Responsividad MD Breakpoint (min-width: 768px)
            ========================================= */
-        
-        /* Ícono del índice - Rotación sutil */
-        .index-link .material-icons-outlined { transition: transform 0.2s; }
-        
-        /* Estado Hover del Índice */
-        .index-link:hover { color: var(--text-gray-900); }
-        .index-link:hover .material-icons-outlined { transform: translateX(2px); color: var(--text-gray-900); }
-        
-        /* Estado Activo del Índice */
-        .index-link.active { color: var(--text-blue-600); font-weight: 500; }
-        .index-link.active .material-icons-outlined { color: var(--text-blue-600); transform: translateX(2px); }
-        .index-link.active .active-indicator { background-color: var(--text-blue-600); }
-
-        /* Reset márgenes de listas anidadas P */
-        p:last-child { margin-bottom: 0; }
-        li { margin-bottom: 0.5rem; }
-
-        /* =========================================
-           📱 Media Queries (Responsividad)
-           ========================================= */
-        @media (max-width: 900px) {
-            .mobile-flex-col { flex-direction: column; }
-            .mobile-px-4 { padding-left: 1rem; padding-right: 1rem; }
-            .mobile-py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-            .mobile-w-full { width: 100%; }
-            .mobile-static { position: static; }
-            .mobile-gap-6 { gap: 1.5rem; }
+        @media (min-width: 768px) {
+            .md\:flex-row { flex-direction: row; }
+            .md\:px-16 { padding-left: 4rem; padding-right: 4rem; }
+            .md\:py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+            .md\:text-5xl { font-size: 3rem; line-height: 1; }
         }
     </style>
 </head>
-<body class="wrapper-bg">
+<body class="bg-gray-50">
 
-    <div class="layout-wrapper max-w-7xl mx-auto flex mobile-flex-col gap-12 mobile-gap-6 px-4 py-8">
-        
-        <!-- 📑 ORGANISMO: BARRA LATERAL (Índice Minimalista) -->
-        <aside class="sidebar-index sticky mobile-static top-16 w-64 mobile-w-full shrink-0">
-            <nav aria-label="Tabla de Contenidos">
-                <ul class="list-none flex flex-col gap-3">
-                    <li class="relative">
-                        <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 rounded-r-md transition-colors"></div>
-                        <a href="#introduccion" class="index-link no-underline flex items-center gap-2 text-gray-500 transition-colors pl-6 pt-0">
-                            <span class="material-icons-outlined text-sm">flight_takeoff</span>
-                            1. Introducción
-                        </a>
-                    </li>
-                    <li class="relative">
-                        <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 rounded-r-md transition-colors"></div>
-                        <a href="#materiales" class="index-link no-underline flex items-center gap-2 text-gray-500 transition-colors pl-6">
-                            <span class="material-icons-outlined text-sm">inventory_2</span>
-                            2. Materiales Necesarios
-                        </a>
-                    </li>
-                    <li class="relative">
-                        <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 rounded-r-md transition-colors"></div>
-                        <a href="#paso1" class="index-link no-underline flex items-center gap-2 text-gray-500 transition-colors pl-6">
-                            <span class="material-icons-outlined text-sm">filter_1</span>
-                            3. El Pliegue Inicial
-                        </a>
-                    </li>
-                    <li class="relative">
-                        <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 rounded-r-md transition-colors"></div>
-                        <a href="#paso2" class="index-link no-underline flex items-center gap-2 text-gray-500 transition-colors pl-6">
-                            <span class="material-icons-outlined text-sm">filter_2</span>
-                            4. La Punta del Avión
-                        </a>
-                    </li>
-                    <li class="relative">
-                        <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 rounded-r-md transition-colors"></div>
-                        <a href="#paso3" class="index-link no-underline flex items-center gap-2 text-gray-500 transition-colors pl-6">
-                            <span class="material-icons-outlined text-sm">filter_3</span>
-                            5. Ensamblaje de Alas
-                        </a>
-                    </li>
-                    <li class="relative">
-                        <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 rounded-r-md transition-colors"></div>
-                        <a href="#consejos" class="index-link no-underline flex items-center gap-2 text-gray-500 transition-colors pl-6">
-                            <span class="material-icons-outlined text-sm">tips_and_updates</span>
-                            6. Consejos de Vuelo
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+<div class="layout-wrapper min-h-screen">
+  
+  <!-- 🖼️ TOP MENU HERO SECTION (Organismo) -->
+  <header class="hero-section relative w-full h-80 flex items-center justify-center">
+    <!-- Imagen de fondo temática (Unsplash) -->
+    <img src="https://images.unsplash.com/photo-1518175923984-d62fbc04deac?q=80&w=1920&auto=format&fit=crop" alt="Portada Avión de Papel" class="absolute inset-0 w-full h-full object-cover z-0">
+    <!-- Capa de contraste oscura -->
+    <div class="absolute inset-0 bg-[--bg-black-50] z-10"></div>
+    
+    <!-- Texto superpuesto sobre la imagen -->
+    <div class="relative z-20 text-center px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">Manual del Dardo Aerodinámico</h1>
+      <p class="text-xl text-gray-200 drop-shadow">Guía definitiva paso a paso para construir el avión de papel perfecto con precisión milimétrica.</p>
+    </div>
+  </header>
 
-        <!-- 📄 ORGANISMO: EL DOCUMENTO (ESTILO PDF) -->
-        <main class="document-page bg-white shadow-page max-w-3xl w-full rounded-md overflow-hidden">
-            
-            <!-- 🖼️ HERO SECTION -->
-            <header class="hero-section relative">
-                <img src="https://images.unsplash.com/photo-1518175923984-d62fbc04deac?q=80&w=1200&auto=format&fit=crop" alt="Avión de Papel" class="w-full h-64 object-cover">
-                <div class="px-12 mobile-px-4 py-8 bg-white border-b border-gray-100/50 relative -mt-4 rounded-t-lg">
-                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Manual del Dardo Aerodinámico</h1>
-                    <p class="text-lg text-gray-600">Guía definitiva paso a paso para construir el avión de papel perfecto con precisión milimétrica.</p>
-                </div>
-            </header>
+  <!-- 📑 BARRA DE MENÚ SUPERIOR (Índice Minimalista Topbar) -->
+  <nav aria-label="Tabla de Contenidos" class="sticky top-0 z-50 bg-[--bg-white-95] backdrop-blur shadow-sm border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4 overflow-x-auto">
+      <ul class="flex items-center gap-8 py-4 whitespace-nowrap list-none">
+        <li>
+          <a href="#introduccion" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+            <span class="material-icons-outlined text-sm">flight_takeoff</span>
+            1. Introducción
+          </a>
+        </li>
+        <li>
+          <a href="#materiales" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+            <span class="material-icons-outlined text-sm">inventory_2</span>
+            2. Materiales
+          </a>
+        </li>
+        <li>
+          <a href="#paso1" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+            <span class="material-icons-outlined text-sm">filter_1</span>
+            3. Pliegue Inicial
+          </a>
+        </li>
+        <li>
+          <a href="#paso2" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+            <span class="material-icons-outlined text-sm">filter_2</span>
+            4. La Punta
+          </a>
+        </li>
+        <li>
+          <a href="#paso3" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+            <span class="material-icons-outlined text-sm">filter_3</span>
+            5. Ensamblaje
+          </a>
+        </li>
+        <li>
+          <a href="#consejos" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+            <span class="material-icons-outlined text-sm">tips_and_updates</span>
+            6. Consejos
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-            <!-- 📝 CUERPO DEL DOCUMENTO -->
-            <div class="document-body px-12 mobile-px-4 py-10 mobile-py-6">
-                
-                <section id="introduccion" class="mb-14 scroll-mt-24">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                        <span class="material-icons-outlined text-blue-500">article</span>
-                        1. Introducción
-                    </h2>
-                    <p class="text-gray-700 leading-relaxed mb-4">Hacer un avión de papel es un arte atemporal que combina principios básicos de aerodinámica con la simplicidad del origami clásico. Ya sea para entretenerte o competir, dominar el diseño fundamental es imprescindible.</p>
-                    <p class="text-gray-700 leading-relaxed">Aprenderás sistemáticamente cómo construir el modelo "Dardo", famoso por su excelente estabilidad longitudinal, vuelo recto y su gran alcance.</p>
-                </section>
+  <!-- 📄 EL DOCUMENTO (ESTILO PDF) -->
+  <main class="document-page bg-white shadow-page max-w-4xl w-full mx-auto my-12 rounded-md overflow-hidden relative z-30">
+    
+    <!-- CUERPO DEL DOCUMENTO -->
+    <div class="document-body px-8 py-10 md:px-16 md:py-16">
+      
+        <section id="introduccion" class="mb-14 scroll-mt-24">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="material-icons-outlined text-blue-500">article</span>
+                1. Introducción
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">Hacer un avión de papel es un arte atemporal que combina principios básicos de aerodinámica con la simplicidad del origami clásico. Ya sea para entretenerte o competir, dominar el diseño fundamental es imprescindible.</p>
+            <p class="text-gray-700 leading-relaxed">Aprenderás sistemáticamente cómo construir el modelo "Dardo", famoso por su excelente estabilidad longitudinal, vuelo recto y su gran alcance.</p>
+        </section>
 
-                <section id="materiales" class="mb-14 scroll-mt-24">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                        <span class="material-icons-outlined text-gray-600">inventory_2</span>
-                        2. Materiales Necesarios
-                    </h2>
-                    <div class="flex flex-col md:flex-row gap-6 items-start">
-                        <div class="flex-1">
-                            <p class="text-gray-700 leading-relaxed mb-4">La precisión y los materiales correctos son tu motor principal para un vuelo perfecto:</p>
-                            <ul class="list-none text-gray-700 leading-relaxed flex flex-col gap-3">
-                                <li class="flex items-start gap-2">
-                                    <span class="material-icons-outlined text-blue-500 mt-1 text-[20px]">check_circle</span>
-                                    <span><strong>Hoja A4 o Carta:</strong> El papel de impresora estándar de oficina (75-80 g/m²) es ideal; ni muy ligero ni rígido.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="material-icons-outlined text-blue-500 mt-1 text-[20px]">check_circle</span>
-                                    <span><strong>Superficie Firme:</strong> Usa tu escritorio limpio para trazar pliegues rectos, afilados e impecables.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="material-icons-outlined text-blue-500 mt-1 text-[20px]">check_circle</span>
-                                    <span><strong>Manos Secas:</strong> La humedad arquea las fibras del papel, estropeando la simetría final. Lávate y sécate las manos antes de empezar.</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex-1 w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100">
-                             <img src="https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=800&auto=format&fit=crop" class="w-full object-cover h-48" alt="Materiales de papel">
-                             <!-- Ley de Proximidad: Pie de foto adherido a la imagen -->
-                             <p class="text-xs text-center text-gray-500 py-2">Hoja en blanco lisa sobre una mesa despejada.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="paso1" class="mb-14 scroll-mt-24">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                        <span class="material-icons-outlined text-gray-600">square_foot</span>
-                        3. Paso 1: El Pliegue Inicial
-                    </h2>
-                    <p class="text-gray-700 leading-relaxed mb-4">Este pliegue central define el equilibrio estructural. Un error milimétrico aquí condenará a tu avión a volar en círculos.</p>
-                    
-                    <div class="flex flex-col gap-4">
-                        <ol class="list-decimal pl-6 text-gray-700 leading-relaxed">
-                            <li class="mb-2">Coloca la hoja físicamente frente a ti en vertical (Modo retrato).</li>
-                            <li class="mb-2">Dobla el borde derecho hacia el izquierdo. Asegúrate de que las 4 esquinas coincidan matemáticamente antes de presionar.</li>
-                            <li class="mb-2">Marca fuertemente el pliegue central usando la uña de tu pulgar de arriba a abajo.</li>
-                            <li>Vuelve a abrir la hoja completamente. Ahora tienes una línea simétrica que cruza el centro como una canaleta.</li>
-                        </ol>
-                        
-                        <!-- Dual Explanation (Text + Image) -->
-                        <div class="w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100 mt-2">
-                             <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?q=80&w=1200&auto=format&fit=crop" class="w-full object-cover h-56" alt="Doblaje inicial simétrico">
-                             <p class="text-xs text-center text-gray-500 py-2">Fíjate bien en mantener presionado el centro con tu dedo antes de marcar.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="paso2" class="mb-14 scroll-mt-24">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                        <span class="material-icons-outlined text-gray-600">navigation</span>
-                        4. Paso 2: Construyendo la Punta
-                    </h2>
-                    <p class="text-gray-700 leading-relaxed mb-4">Esta zona acumula el centro de masa para perforar el aire. Es el "morro" (nariz) de nuestro dardo.</p>
-                    
-                    <div class="flex flex-col gap-4">
-                        <ol class="list-decimal pl-6 text-gray-700 leading-relaxed">
-                            <li class="mb-2">Toma la esquina superior derecha y dóblala hacia el centro alineando su borde superior contra el pliegue central recien hecho.</li>
-                            <li class="mb-2">Haz lo mismo con la esquina izquierda. Ahora tu papel dibuja un techo simétrico a dos aguas (como una casa).</li>
-                            <li class="mb-2"><strong>Atención aquí:</strong> Toma el borde diagonal derecho (esa nueva hipotenusa) y dóblalo *de nuevo* hacia el centro hasta que se asiente en el eje.</li>
-                            <li>Repite con la arista diagonal izquierda. El modelo ahora parece realmente una punta de flecha afilada.</li>
-                        </ol>
-
-                        <div class="w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100 mt-2">
-                             <img src="https://images.unsplash.com/photo-1596401057633-54a8fea8ce64?q=80&w=1200&auto=format&fit=crop" class="w-full object-cover h-56" alt="Doblando la nariz en forma de dardo">
-                             <p class="text-xs text-center text-gray-500 py-2">La punta debe terminar tan afilada y compacta como sea posible.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="paso3" class="mb-14 scroll-mt-24">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                        <span class="material-icons-outlined text-gray-600">air</span>
-                        5. Paso 3: Las Alas (Sustentación)
-                    </h2>
-                    <p class="text-gray-700 leading-relaxed mb-4">Las alas dictarán cómo flota literalmente sobre el aire. Su simetría es crítica según la ley fundamental de aeronáutica.</p>
-                    
-                    <div class="flex flex-col gap-4">
-                        <ol class="list-decimal pl-6 text-gray-700 leading-relaxed">
-                            <li class="mb-2">Cierra todo el avión por la mitad usando el pliegue central original (dejando las partes que acabas de doblar visiblemente "por fuera").</li>
-                            <li class="mb-2">Tumba el modelo de perfil o delate de ti.</li>
-                            <li class="mb-2">Para el ala derecha: Agarra el borde inclinado y empújalo hacia abajo hasta que toque alineándose perfectamente con la "base" inferior (la quilla del avión) y márcalo.</li>
-                            <li class="mb-2">Dale la vuelta al avión y repite con extrema precisión la misma inclinación en el ala izquierda.</li>
-                            <li>Levanta cada ala cuidadosamente hasta que queden a casi 90 grados respecto al cuerpo donde tus dedos lo sujetan.</li>
-                        </ol>
-
-                        <div class="w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100 mt-2">
-                             <img src="https://images.unsplash.com/photo-1620027138337-37fbda89658b?q=80&w=1200&auto=format&fit=crop" class="w-full object-cover h-56" alt="Finalización simétrica aerodinámica de las alas">
-                             <p class="text-xs text-center text-gray-500 py-2">Avión terminado. Nota el ángulo en Y, casi 90º.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="consejos" class="mb-14 scroll-mt-24">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                        <span class="material-icons-outlined text-gray-600">lightbulb</span>
-                        6. Consejos Prácticos y Afinación
-                    </h2>
-                    <p class="text-gray-700 leading-relaxed mb-6">Aun con pliegues maestros, necesitas técnica para lanzarlo.</p>
-                    
-                    <!-- 💡 IBM Design: Micro-interacciones guiadas & Empatía en el error -->
-                    <div class="bg-blue-50 border-l-4 border-blue-500 py-5 px-6 rounded-r-md mb-6 shadow-sm transition-all hover:shadow-md cursor-default">
-                        <h3 class="font-bold text-blue-800 mb-2 flex items-center gap-2"><span class="material-icons-outlined text-lg">info</span> Tip Aerodinámico (Lanzamiento)</h3>
-                        <p class="text-gray-800 text-sm leading-relaxed">Sostén el avión por el centro de equilibrio (generalmente a un tercio de la punta) y apúntalo ligeramente hacia arriba (15°). <strong>¡La clave NO es usar brutalidad muscular!</strong> Lanza usando tu muñeca en un gesto suave, como lanzando un dardo, permitiendo que las alas 'pesquen' el aire.</p>
-                    </div>
-
-                    <p class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                        <span class="material-icons-outlined text-gray-600 text-sm">build</span> 
-                        ¿Se desvía o cae rápido? Así se arregla:
-                    </p>
+        <section id="materiales" class="mb-14 scroll-mt-24">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="material-icons-outlined text-gray-600">inventory_2</span>
+                2. Materiales Necesarios
+            </h2>
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                <div class="flex-1">
+                    <p class="text-gray-700 leading-relaxed mb-4">La precisión y los materiales correctos son tu motor principal para un vuelo perfecto:</p>
                     <ul class="list-none text-gray-700 leading-relaxed flex flex-col gap-3">
-                        <li class="flex gap-3 bg-gray-50 p-4 rounded border border-gray-100">
-                            <span class="material-icons-outlined text-red-400 mt-1">trending_down</span>
-                            <div>
-                                <strong class="text-gray-900 block">Problema: Se estrella aceleradamente en picada.</strong> 
-                                Solución: Pellizca ligeramente (uno o dos milímetros) las esquinas traseras de ambas alas "hacia arriba" simulando Alerones. 
-                            </div>
+                        <li class="flex items-start gap-2">
+                            <span class="material-icons-outlined text-blue-500 mt-1 text-[20px]">check_circle</span>
+                            <span><strong>Hoja A4 o Carta:</strong> El papel de impresora estándar de oficina (75-80 g/m²) es ideal; ni muy ligero ni rígido.</span>
                         </li>
-                        <li class="flex gap-3 bg-gray-50 p-4 rounded border border-gray-100">
-                            <span class="material-icons-outlined text-orange-400 mt-1">trending_up</span>
-                            <div>
-                                <strong class="text-gray-900 block">Problema: Sube rápido de golpe y luego colapsa al suelo (Pérdida/Stall).</strong> 
-                                Solución: Los alerones traseros están demasiado altos; vuélvelos a bajar con suavidad para aplanar el flujo de aire.
-                            </div>
+                        <li class="flex items-start gap-2">
+                            <span class="material-icons-outlined text-blue-500 mt-1 text-[20px]">check_circle</span>
+                            <span><strong>Superficie Firme:</strong> Usa tu escritorio limpio para trazar pliegues rectos, afilados e impecables.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="material-icons-outlined text-blue-500 mt-1 text-[20px]">check_circle</span>
+                            <span><strong>Manos Secas:</strong> La humedad arquea las fibras del papel, estropeando la simetría final. Lávate y sécate las manos antes de empezar.</span>
                         </li>
                     </ul>
-                </section>
+                </div>
+                <div class="flex-1 w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100">
+                     <img src="https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=800&auto=format&fit=crop" class="w-full object-cover h-48" alt="Materiales de papel">
+                     <!-- Ley de Proximidad: Pie de foto adherido a la imagen -->
+                     <p class="text-xs text-center text-gray-500 py-2">Hoja en blanco lisa sobre una mesa despejada.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="paso1" class="mb-14 scroll-mt-24">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="material-icons-outlined text-gray-600">square_foot</span>
+                3. Paso 1: El Pliegue Inicial
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">Este pliegue central define el equilibrio estructural. Un error milimétrico aquí condenará a tu avión a volar en círculos.</p>
+            
+            <div class="flex flex-col gap-4">
+                <ol class="list-decimal pl-6 text-gray-700 leading-relaxed">
+                    <li class="mb-2">Coloca la hoja físicamente frente a ti en vertical (Modo retrato).</li>
+                    <li class="mb-2">Dobla el borde derecho hacia el izquierdo. Asegúrate de que las 4 esquinas coincidan matemáticamente antes de presionar.</li>
+                    <li class="mb-2">Marca fuertemente el pliegue central usando la uña de tu pulgar de arriba a abajo.</li>
+                    <li>Vuelve a abrir la hoja completamente. Ahora tienes una línea simétrica que cruza el centro como una canaleta.</li>
+                </ol>
+                
+                <!-- Dual Explanation (Text + Image) -->
+                <div class="w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100 mt-2">
+                     <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?q=80&w=1200&auto=format&fit=crop" class="w-full object-cover h-56" alt="Doblaje inicial simétrico">
+                     <p class="text-xs text-center text-gray-500 py-2">Fíjate bien en mantener presionado el centro con tu dedo antes de marcar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="paso2" class="mb-14 scroll-mt-24">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="material-icons-outlined text-gray-600">navigation</span>
+                4. Paso 2: Construyendo la Punta
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">Esta zona acumula el centro de masa para perforar el aire. Es el "morro" (nariz) de nuestro dardo.</p>
+            
+            <div class="flex flex-col gap-4">
+                <ol class="list-decimal pl-6 text-gray-700 leading-relaxed">
+                    <li class="mb-2">Toma la esquina superior derecha y dóblala hacia el centro alineando su borde superior contra el pliegue central recien hecho.</li>
+                    <li class="mb-2">Haz lo mismo con la esquina izquierda. Ahora tu papel dibuja un techo simétrico a dos aguas (como una casa).</li>
+                    <li class="mb-2"><strong>Atención aquí:</strong> Toma el borde diagonal derecho (esa nueva hipotenusa) y dóblalo *de nuevo* hacia el centro hasta que se asiente en el eje.</li>
+                    <li>Repite con la arista diagonal izquierda. El modelo ahora parece realmente una punta de flecha afilada.</li>
+                </ol>
+
+                <div class="w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100 mt-2">
+                     <img src="https://images.unsplash.com/photo-1596401057633-54a8fea8ce64?q=80&w=1200&auto=format&fit=crop" class="w-full object-cover h-56" alt="Doblando la nariz en forma de dardo">
+                     <p class="text-xs text-center text-gray-500 py-2">La punta debe terminar tan afilada y compacta como sea posible.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="paso3" class="mb-14 scroll-mt-24">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="material-icons-outlined text-gray-600">air</span>
+                5. Paso 3: Las Alas (Sustentación)
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">Las alas dictarán cómo flota literalmente sobre el aire. Su simetría es crítica según la ley fundamental de aeronáutica.</p>
+            
+            <div class="flex flex-col gap-4">
+                <ol class="list-decimal pl-6 text-gray-700 leading-relaxed">
+                    <li class="mb-2">Cierra todo el avión por la mitad usando el pliegue central original (dejando las partes que acabas de doblar visiblemente "por fuera").</li>
+                    <li class="mb-2">Tumba el modelo de perfil o delate de ti.</li>
+                    <li class="mb-2">Para el ala derecha: Agarra el borde inclinado y empújalo hacia abajo hasta que toque alineándose perfectamente con la "base" inferior (la quilla del avión) y márcalo.</li>
+                    <li class="mb-2">Dale la vuelta al avión y repite con extrema precisión la misma inclinación en el ala izquierda.</li>
+                    <li>Levanta cada ala cuidadosamente hasta que queden a casi 90 grados respecto al cuerpo donde tus dedos lo sujetan.</li>
+                </ol>
+
+                <div class="w-full bg-gray-50 rounded-md overflow-hidden shadow-sm border border-gray-100 mt-2">
+                     <img src="https://images.unsplash.com/photo-1620027138337-37fbda89658b?q=80&w=1200&auto=format&fit=crop" class="w-full object-cover h-56" alt="Finalización simétrica aerodinámica de las alas">
+                     <p class="text-xs text-center text-gray-500 py-2">Avión terminado. Nota el ángulo en Y, casi 90º.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="consejos" class="mb-14 scroll-mt-24">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="material-icons-outlined text-gray-600">lightbulb</span>
+                6. Consejos Prácticos y Afinación
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-6">Aun con pliegues maestros, necesitas técnica para lanzarlo.</p>
+            
+            <!-- 💡 IBM Design: Micro-interacciones guiadas & Empatía en el error -->
+            <div class="bg-blue-50 border-l-4 border-l-blue-500 py-5 px-6 rounded-r-md mb-6 shadow-sm cursor-default">
+                <h3 class="font-bold text-blue-800 mb-2 flex items-center gap-2"><span class="material-icons-outlined text-lg">info</span> Tip Aerodinámico (Lanzamiento)</h3>
+                <p class="text-gray-800 text-sm leading-relaxed">Sostén el avión por el centro de equilibrio (generalmente a un tercio de la punta) y apúntalo ligeramente hacia arriba (15°). <strong>¡La clave NO es usar brutalidad muscular!</strong> Lanza usando tu muñeca en un gesto suave, como lanzando un dardo, permitiendo que las alas 'pesquen' el aire.</p>
             </div>
 
-            <!-- 🦶 FOOTER MINIMALISTA (Organismo) -->
-            <footer class="footer-section px-12 mobile-px-4 py-8 bg-gray-50 border-t border-gray-100 text-center">
-                <p class="text-sm text-gray-500 font-medium tracking-wide uppercase">© 2026 Manual de Ingeniería de Papel.</p>
-                <p class="text-gray-400 text-sm mt-2 flex items-center justify-center gap-1">
-                    Documento generado con <span class="material-icons-outlined text-red-500" style="font-size: 16px;">favorite</span> por Google Antigravity.
-                </p>
-            </footer>
-
-        </main>
+            <p class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <span class="material-icons-outlined text-gray-600 text-sm">build</span> 
+                ¿Se desvía o cae rápido? Así se arregla:
+            </p>
+            <ul class="list-none text-gray-700 leading-relaxed flex flex-col gap-3">
+                <li class="flex gap-3 bg-gray-50 p-4 rounded border border-gray-100">
+                    <span class="material-icons-outlined text-red-400 mt-1">trending_down</span>
+                    <div>
+                        <strong class="text-gray-900 block">Problema: Se estrella aceleradamente en picada.</strong> 
+                        Solución: Pellizca ligeramente (uno o dos milímetros) las esquinas traseras de ambas alas "hacia arriba" simulando Alerones. 
+                    </div>
+                </li>
+                <li class="flex gap-3 bg-gray-50 p-4 rounded border border-gray-100">
+                    <span class="material-icons-outlined text-orange-400 mt-1">trending_up</span>
+                    <div>
+                        <strong class="text-gray-900 block">Problema: Sube rápido de golpe y luego colapsa al suelo (Pérdida/Stall).</strong> 
+                        Solución: Los alerones traseros están demasiado altos; vuélvelos a bajar con suavidad para aplanar el flujo de aire.
+                    </div>
+                </li>
+            </ul>
+        </section>
     </div>
 
-    <!-- ⚙️ Script para el Scroll Spy -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.index-link');
+    <!-- 🦶 FOOTER MINIMALISTA (Organismo) -->
+    <footer class="footer-section px-12 py-8 bg-gray-50 border-t border-gray-100 text-center text-sm text-gray-500">
+      <p class="font-semibold text-gray-700 mb-2">© 2026 Manual de Ingeniería de Papel. Todos los derechos reservados.</p>
+      
+      <p class="mt-2 flex items-center justify-center gap-1">
+        Generado con <span class="material-icons-outlined text-red-500 text-sm">favorite</span> por Antigravity.
+      </p>
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '-20% 0px -60% 0px',
-                threshold: 0
-            };
+      <!-- 🎖️ Firma de Autor (Oculta en código, requerida por skill.md regla 7) -->
+      <div class="hidden" aria-hidden="true">
+        <!-- 
+            Versión: 1.0 
+            Creador: julljoll 
+            Sitio web: siriusweb.us 
+            Correo Electrónico: julljoll@gmail.com 
+        -->
+        <p>Versión: 1.0</p>
+        <p>Creador: julljoll</p>
+        <p>Sitio web: <a href="https://siriusweb.us">siriusweb.us</a></p>
+        <p>Correo Electrónico: <a href="mailto:julljoll@gmail.com">julljoll@gmail.com</a></p>
+      </div>
+    </footer>
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            // Resetea el indicador lateral además de la clase
-                            link.previousElementSibling.style.backgroundColor = 'transparent';
-                        });
-                        
-                        const activeLink = document.querySelector(`.index-link[href="#${id}"]`);
-                        if(activeLink) {
-                            activeLink.classList.add('active');
-                            // Activa el indicador lateral
-                            activeLink.previousElementSibling.style.backgroundColor = 'var(--text-blue-600)';
-                        }
+  </main>
+</div>
+
+<!-- ⚙️ Script para el Scroll Spy (Topbar interactiva) -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.index-link');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    
+                    const activeLink = document.querySelector(`.index-link[href="#${id}"]`);
+                    if(activeLink) {
+                        activeLink.classList.add('active');
                     }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
+                }
             });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
         });
-    </script>
+    });
+</script>
 </body>
 </html>
