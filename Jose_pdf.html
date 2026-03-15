@@ -3,262 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="color-scheme" content="light dark" />
-    <meta name="supported-color-schemes" content="light dark" />
+    <meta name="color-scheme" content="light dark">
     <title>Plan de Alimentación - Jose</title>
-    <!-- Fonts & Icons -->
-    <style type="text/css">
+    <style>
         @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
         @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
 
-        /* BASE RESETS */
-        body { margin: 0; padding: 0; background-color: #f8fafc; font-family: 'Inter', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-        table { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
-        img { display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        body { background: #f8fafc; font-family: 'Inter', sans-serif; color: #1e293b; }
+        img { display: block; max-width: 100%; }
 
-        /* DARK MODE OVERRIDES */
+        .wrap { max-width: 600px; margin: 24px auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 16px 32px rgba(0,0,0,.08); }
+        .hero { position: relative; height: 180px; overflow: hidden; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.55)); display: flex; align-items: center; justify-content: center; }
+        .hero-overlay h1 { color: #fff; font-size: 28px; font-weight: 800; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+
+        .nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.97); backdrop-filter: blur(8px); padding: 10px 16px; overflow-x: auto; white-space: nowrap; text-align: center; }
+        .nav a { color: #64748b; text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 6px 12px; border-radius: 20px; transition: .2s; }
+        .nav a:hover { background: #eff6ff; color: #2563eb; }
+
+        .body-content { padding: 40px; }
+        .section { scroll-margin-top: 60px; margin-bottom: 48px; }
+        .section-img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
+        .section h2 { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
+        .card { background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+        .card-label { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
+        .card ul { padding-left: 20px; font-size: 14px; line-height: 1.8; color: #334155; }
+
+        .note { background: #f0f9ff; border-radius: 12px; padding: 24px; }
+        .note h3 { font-size: 15px; font-weight: 800; color: #0369a1; margin-bottom: 10px; }
+        .note p { font-size: 14px; color: #0c4a6e; line-height: 1.7; }
+
+        .icon { font-family: 'Material Symbols Outlined'; font-size: 18px; vertical-align: middle; }
+
+        footer { padding: 32px 20px; background: #f8fafc; text-align: center; }
+        footer p { font-size: 12px; color: #94a3b8; }
+
         @media (prefers-color-scheme: dark) {
-            body { background-color: #0f172a !important; }
-            .main-container { background-color: #1e293b !important; box-shadow: none !important; }
-            .text-dark { color: #f1f5f9 !important; }
-            .text-muted { color: #94a3b8 !important; }
-            .bg-muted { background-color: #334155 !important; }
-            .option-card { background-color: #334155 !important; border-color: #475569 !important; }
-            .nav-link { color: #94a3b8 !important; }
-            .nav-link:hover { background-color: #475569 !important; color: #ffffff !important; }
-            .sticky-nav { background: rgba(30, 41, 59, 0.98) !important; border-color: #334155 !important; }
+            body { background: #0f172a; color: #f1f5f9; }
+            .wrap { background: #1e293b; box-shadow: none; }
+            .nav { background: rgba(30,41,59,.97); }
+            .nav a { color: #94a3b8; }
+            .nav a:hover { background: #475569; color: #fff; }
+            .card { background: #334155; }
+            .card ul { color: #cbd5e1; }
+            .card-label { color: #94a3b8; }
+            .section h2 { color: #f1f5f9; }
+            .note { background: #1e3a5f; }
+            .note h3 { color: #7dd3fc; }
+            .note p { color: #bae6fd; }
+            footer { background: #1e293b; }
         }
 
-        /* RESPONSIVE */
-        @media only screen and (max-width: 620px) {
-            .main-container { width: 100% !important; max-width: 100% !important; }
-            .content-pad { padding: 24px 20px !important; }
-            .section-img { height: 120px !important; }
+        @media (max-width: 620px) {
+            .wrap { margin: 0; border-radius: 0; }
+            .body-content { padding: 24px 20px; }
+            .section-img { height: 120px; }
         }
-
-        .material-symbols-outlined {
-            font-family: 'Material Symbols Outlined', sans-serif;
-            font-weight: normal; font-style: normal; font-size: 18px; line-height: 1;
-            display: inline-block; vertical-align: middle;
-        }
-
-        .nav-link { 
-            color: #64748b; text-decoration: none; font-size: 11px; font-weight: 700; 
-            padding: 8px 12px; border-radius: 20px; transition: all 0.2s;
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .nav-link:hover { background-color: #eff6ff; color: #2563eb; }
-        
-        .meal-section { scroll-margin-top: 80px; margin-bottom: 48px; }
-        .option-card { background-color: #ffffff; border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
-        .section-img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 16px; }
     </style>
 </head>
 <body>
 
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
-        <tr>
-            <td align="center" style="padding: 20px 10px;">
-                
-                <!-- MAIN WRAPPER 600px -->
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" class="main-container" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
-                    
-                    <!-- HERO -->
-                    <tr>
-                        <td style="position: relative; height: 180px; overflow: hidden;">
-                            <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=800&auto=format&fit=crop" width="600" alt="Nutrición" class="hero-img" style="width: 100%; height: 180px; object-fit: cover;">
-                            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)); display: flex; align-items: center; justify-content: center;">
-                                <h1 style="color: #ffffff; font-size: 32px; font-weight: 800; margin: 0; text-shadow: 0 4px 6px rgba(0,0,0,0.4); letter-spacing: -1px;">Plan de Alimentacion</h1>
-                            </div>
-                        </td>
-                    </tr>
+<div class="wrap">
 
-                    <!-- STICKY NAV (PRINCIBIO DE CONTINUIDAD) -->
-                    <tr class="sticky-nav" style="position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.98); backdrop-filter: blur(8px); border-bottom: 1px solid #f1f5f9;">
-                        <td align="center" style="padding: 12px;">
-                            <div style="overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;">
-                                <a href="#c1" class="nav-link">Comida 1</a>
-                                <a href="#c2" class="nav-link">Comida 2</a>
-                                <a href="#c3" class="nav-link">Comida 3</a>
-                                <a href="#c4" class="nav-link">Comida 4</a>
-                                <a href="#c5" class="nav-link">Comida 5</a>
-                            </div>
-                        </td>
-                    </tr>
+    <!-- HERO -->
+    <div class="hero">
+        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&h=300&auto=format&fit=crop" alt="Nutrición">
+        <div class="hero-overlay"><h1>Plan de Alimentacion</h1></div>
+    </div>
 
-                    <!-- CONTENT -->
-                    <tr>
-                        <td class="content-pad" style="padding: 40px;">
-                            
-                            <!-- SECCIÓN: COMIDA 1 (GESTALT: PROXIMIDAD) -->
-                            <div id="c1" class="meal-section">
-                                <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=600&h=300&auto=format&fit=crop" alt="Desayuno" class="section-img">
-                                <h2 class="text-dark" style="font-size: 22px; font-weight: 800; margin: 0 0 20px 0; color: #0f172a;">Comida 1:</h2>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opciones:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>50g de corn flakes (sin azucar añadido)</li>
-                                        <li>200 - 250 ml de leche ( que te venga bien, no tengas mala digestion )</li>
-                                        <li>3 huevos ( tortillas, cocido o revueltos)</li>
-                                        <li>en caso de que tengas proteina en polvo, agregas 50g a la leche y quitamos los huevos</li>
-                                    </ul>
-                                </div>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opciones:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>3 revanadas de pan sandwich</li>
-                                        <li>2 huevos</li>
-                                        <li>30g de jamon cocido york</li>
-                                        <li>1/2 agucate</li>
-                                    </ul>
-                                </div>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opcion:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>40 g de avena ( la haces vatido, cocida etc )</li>
-                                        <li>1 banana grande</li>
-                                        <li>2 huevos + 50g de jamon cocido ( tortillas o revueltos, van muy bien)</li>
-                                    </ul>
-                                </div>
-                            </div>
+    <!-- NAV -->
+    <div class="nav">
+        <a href="#c1">Comida 1</a>
+        <a href="#c2">Comida 2</a>
+        <a href="#c3">Comida 3</a>
+        <a href="#c4">Comida 4</a>
+        <a href="#c5">Comida 5</a>
+    </div>
 
-                            <!-- SECCIÓN: COMIDA 2 -->
-                            <div id="c2" class="meal-section">
-                                <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=600&h=300&auto=format&fit=crop" alt="Snack" class="section-img">
-                                <h2 class="text-dark" style="font-size: 22px; font-weight: 800; margin: 0 0 20px 0; color: #0f172a;">Comida 2:</h2>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opciones:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>1 banana grande</li>
-                                        <li>1 taza de avena 30g</li>
-                                        <li>200 -250 ml deleche te guste la textura</li>
-                                        <li>come un puñados de frutos secos ( mani, nueces o almendras ) 20g</li>
-                                    </ul>
-                                </div>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opcion:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>4 tortas de arroz ( es arroz inflado )</li>
-                                        <li>1 lata de atun ( que no este en aceite vegetal )</li>
-                                        <li>un puñado de frutos secos ( mani, nueces, almendras)</li>
-                                    </ul>
-                                </div>
-                            </div>
+    <!-- CONTENIDO -->
+    <div class="body-content">
 
-                            <!-- SECCIÓN: COMIDA 3 -->
-                            <div id="c3" class="meal-section">
-                                <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=600&h=300&auto=format&fit=crop" alt="Almuerzo" class="section-img">
-                                <h2 class="text-dark" style="font-size: 22px; font-weight: 800; margin: 0 0 20px 0; color: #0f172a;">Comida 3:</h2>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opciones:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>200g de pollo</li>
-                                        <li>150g de arroz ya cocido</li>
-                                        <li>ensalda fresca ( lechugas, tomates, cebollas etc) o verduras tipo ( pimientos salteados, brocolis, coliflor, ese tipo de cosas)</li>
-                                        <li>1/2 agucate</li>
-                                    </ul>
-                                </div>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opcion:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>200g de ternera ( res) ya sea ( molida o filete, que no tenga mucha grasa) o cerdo ( sin tanta grasa y echo a la plancha)</li>
-                                        <li>300g de papas cocida ( no solo puede ser cocida, en la freidora de aire o pure)</li>
-                                        <li>verduras o ensalada al gusto + 1/2 agucate</li>
-                                    </ul>
-                                </div>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opcion:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>150g de pasta ya cocida</li>
-                                        <li>200g de carne picada ( molida)</li>
-                                        <li>salsas de tomate natural ( la haces sin tanto aceite)</li>
-                                    </ul>
-                                </div>
-                            </div>
+        <!-- COMIDA 1 -->
+        <div id="c1" class="section">
+            <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&h=300&auto=format&fit=crop" alt="Desayuno" class="section-img">
+            <h2>Comida 1:</h2>
+            <div class="card">
+                <p class="card-label">Opciones:</p>
+                <ul>
+                    <li>50g de corn flakes (sin azucar añadido)</li>
+                    <li>200 - 250 ml de leche ( que te venga bien, no tengas mala digestion )</li>
+                    <li>3 huevos ( tortillas, cocido o revueltos)</li>
+                    <li>en caso de que tengas proteina en polvo, agregas 50g a la leche y quitamos los huevos</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opciones:</p>
+                <ul>
+                    <li>3 revanadas de pan sandwich</li>
+                    <li>2 huevos</li>
+                    <li>30g de jamon cocido york</li>
+                    <li>1/2 agucate</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>40 g de avena ( la haces vatido, cocida etc )</li>
+                    <li>1 banana grande</li>
+                    <li>2 huevos + 50g de jamon cocido ( tortillas o revueltos, van muy bien)</li>
+                </ul>
+            </div>
+        </div>
 
-                            <!-- SECCIÓN: COMIDA 4 -->
-                            <div id="c4" class="meal-section">
-                                <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=600&h=300&auto=format&fit=crop" alt="Yogurt" class="section-img">
-                                <h2 class="text-dark" style="font-size: 22px; font-weight: 800; margin: 0 0 20px 0; color: #0f172a;">Comida 4:</h2>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opcion:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>200g de yogurt griogo 0% sin azucar añadidos ( sabor el que prefieras)</li>
-                                        <li>1 banana garnde + una manzana o pera</li>
-                                        <li>le pones o te comes aparte un puñado de frutos secos</li>
-                                    </ul>
-                                </div>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opcion:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>200g de yogurt 0%</li>
-                                        <li>40g de corn flakes ( sin azucar)</li>
-                                    </ul>
-                                </div>
-                            </div>
+        <!-- COMIDA 2 -->
+        <div id="c2" class="section">
+            <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=600&h=300&auto=format&fit=crop" alt="Snack" class="section-img">
+            <h2>Comida 2:</h2>
+            <div class="card">
+                <p class="card-label">Opciones:</p>
+                <ul>
+                    <li>1 banana grande</li>
+                    <li>1 taza de avena 30g</li>
+                    <li>200 -250 ml deleche te guste la textura</li>
+                    <li>come un puñados de frutos secos ( mani, nueces o almendras ) 20g</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>4 tortas de arroz ( es arroz inflado )</li>
+                    <li>1 lata de atun ( que no este en aceite vegetal )</li>
+                    <li>un puñado de frutos secos ( mani, nueces, almendras)</li>
+                </ul>
+            </div>
+        </div>
 
-                            <!-- SECCIÓN: COMIDA 5 -->
-                            <div id="c5" class="meal-section">
-                                <img src="https://images.unsplash.com/photo-1546241072-48010ad28c2c?q=80&w=600&h=300&auto=format&fit=crop" alt="Cena" class="section-img">
-                                <h2 class="text-dark" style="font-size: 22px; font-weight: 800; margin: 0 0 20px 0; color: #0f172a;">Comida 5:</h2>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opciones:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>3 revanadas de pan sandwich</li>
-                                        <li>3 huevos</li>
-                                        <li>50g de jamon cocido york</li>
-                                        <li>1/2 agucate</li>
-                                    </ul>
-                                </div>
-                                <div class="option-card">
-                                    <p style="font-size: 13px; color: #64748b; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase;">Opcion:</p>
-                                    <ul style="padding-left: 20px; font-size: 14px; color: #334155; margin: 0; line-height: 1.7;">
-                                        <li>60g de harina de maiz ( arepa ) peso en crudo</li>
-                                        <li>2 huevos</li>
-                                        <li>50g de jamon cocido</li>
-                                        <li>1 rebanada de queso</li>
-                                        <li>agregas vegetales para hacerla tipo perico</li>
-                                    </ul>
-                                </div>
-                            </div>
+        <!-- COMIDA 3 -->
+        <div id="c3" class="section">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&h=300&auto=format&fit=crop" alt="Almuerzo" class="section-img">
+            <h2>Comida 3:</h2>
+            <div class="card">
+                <p class="card-label">Opciones:</p>
+                <ul>
+                    <li>200g de pollo</li>
+                    <li>150g de arroz ya cocido</li>
+                    <li>ensalda fresca ( lechugas, tomates, cebollas etc) o verduras tipo ( pimientos salteados, brocolis, coliflor, ese tipo de cosas)</li>
+                    <li>1/2 agucate</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>200g de ternera ( res) ya sea ( molida o filete, que no tenga mucha grasa) o cerdo ( sin tanta grasa y echo a la plancha)</li>
+                    <li>300g de papas cocida ( no solo puede ser cocida, en la freidora de aire o pure)</li>
+                    <li>verduras o ensalada al gusto + 1/2 agucate</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>150g de pasta ya cocida</li>
+                    <li>200g de carne picada ( molida)</li>
+                    <li>salsas de tomate natural ( la haces sin tanto aceite)</li>
+                </ul>
+            </div>
+        </div>
 
-                            <!-- NOTA -->
-                            <div style="background-color: #f0f9ff; border-radius: 12px; padding: 24px; border: 1px solid #bae6fd;">
-                                <h3 style="font-size: 16px; font-weight: 800; color: #0369a1; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px;">
-                                    <span class="material-symbols-outlined" style="color: #0ea5e9;">info</span> Nota Importante
-                                </h3>
-                                <p style="font-size: 14px; color: #0c4a6e; margin: 0; line-height: 1.7; font-style: italic;">
-                                    - Necesito que tengas un control que varies los alimentos y asi podras mantenerlo mucho mas sin aburrir, el uso de salsas tipo kechut o mastaza la puedes comer siempre moderando las cantidades, 1 vez por semana salte del plan sin remordimentos desconecta 1 comida libre, cuentas con mi apoyo para llegar a tu mejor version..!!
-                                </p>
-                            </div>
+        <!-- COMIDA 4 -->
+        <div id="c4" class="section">
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&h=300&auto=format&fit=crop" alt="Yogurt" class="section-img">
+            <h2>Comida 4:</h2>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>200g de yogurt griogo 0% sin azucar añadidos ( sabor el que prefieras)</li>
+                    <li>1 banana garnde + una manzana o pera</li>
+                    <li>le pones o te comes aparte un puñado de frutos secos</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>200g de yogurt 0%</li>
+                    <li>40g de corn flakes ( sin azucar)</li>
+                </ul>
+            </div>
+        </div>
 
-                        </td>
-                    </tr>
+        <!-- COMIDA 5 -->
+        <div id="c5" class="section">
+            <img src="https://images.unsplash.com/photo-1546241072-48010ad28c2c?w=600&h=300&auto=format&fit=crop" alt="Cena" class="section-img">
+            <h2>Comida 5:</h2>
+            <div class="card">
+                <p class="card-label">Opciones:</p>
+                <ul>
+                    <li>3 revanadas de pan sandwich</li>
+                    <li>3 huevos</li>
+                    <li>50g de jamon cocido york</li>
+                    <li>1/2 agucate</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>60g de harina de maiz ( arepa ) peso en crudo</li>
+                    <li>2 huevos</li>
+                    <li>50g de jamon cocido</li>
+                    <li>1 rebanada de queso</li>
+                    <li>agregas vegetales para hacerla tipo perico</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p class="card-label">Opcion:</p>
+                <ul>
+                    <li>200g de pollo o ternera ( res)</li>
+                    <li>150g de arroz cocido o 300g de papas cocidas</li>
+                    <li>verduras o vegetales al gusto</li>
+                </ul>
+            </div>
+        </div>
 
-                    <!-- FOOTER -->
-                    <tr>
-                        <td align="center" style="padding: 40px 20px; background-color: #f8fafc; border-top: 1px solid #f1f5f9;">
-                            <p class="text-muted" style="margin: 0; font-size: 12px; font-weight: 500;">
-                                Cuentas con mi apoyo para llegar a tu mejor versión.
-                            </p>
-                            
-                            <!-- Metadata de Autoría (Oculto en UI)
-                            Versión: 4.2
-                            Creador: julljoll
-                            Sitio web: siriusweb.us (https://siriusweb.us)
-                            Correo electrónico: julljoll@gmail.com
-                            -->
-                        </td>
-                    </tr>
+        <!-- NOTA -->
+        <div class="note">
+            <h3><span class="icon">info</span> Nota:</h3>
+            <p>- Necesito que tengas un control que varies los alimentos y asi podras mantenerlo mucho mas sin aburrir, el uso de salsas tipo kechut o mastaza la puedes comer siempre moderando las cantidades, 1 vez por semana salte del plan sin remordimentos desconecta 1 comida libre, cuentas con mi apoyo para llegar a tu mejor version..!!</p>
+        </div>
 
-                </table>
-                <!-- FIN MAIN WRAPPER -->
+    </div>
 
-            </td>
-        </tr>
-    </table>
+    <!-- FOOTER -->
+    <footer>
+        <p>Cuentas con mi apoyo para llegar a tu mejor versión.</p>
+        <!-- v4.3 · julljoll · siriusweb.us · julljoll@gmail.com -->
+    </footer>
+
+</div>
 
 </body>
 </html>
