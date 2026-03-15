@@ -221,68 +221,71 @@
 </head>
 <body class="bg-gray-50">
 
-<div class="layout-wrapper min-h-screen">
+<div class="layout-wrapper min-h-screen py-8 px-4 md:px-0 flex flex-col items-center">
   
-  <!-- 🖼️ TOP MENU HERO SECTION (Organismo) -->
-  <header class="hero-section relative w-full h-80 flex items-center justify-center">
-    <!-- Imagen de fondo temática (Unsplash) -->
-    <img src="https://images.unsplash.com/photo-1518175923984-d62fbc04deac?q=80&w=1920&auto=format&fit=crop" alt="Portada Avión de Papel" class="absolute inset-0 w-full h-full object-cover z-0">
-    <!-- Capa de contraste oscura -->
-    <div class="absolute inset-0 bg-[--bg-black-50] z-10"></div>
-    
-    <!-- Texto superpuesto sobre la imagen -->
-    <div class="relative z-20 text-center px-4">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">Manual del Dardo Aerodinámico</h1>
-      <p class="text-xl text-gray-200 drop-shadow">Guía definitiva paso a paso para construir el avión de papel perfecto con precisión milimétrica.</p>
-    </div>
-  </header>
+  <!-- Contenedor Único para que Hero, Menú, Body y Footer tengan el mismo tamaño -->
+  <div class="max-w-4xl w-full mx-auto bg-white shadow-page rounded-md overflow-hidden relative">
 
-  <!-- 📑 BARRA DE MENÚ SUPERIOR (Índice Minimalista Topbar) -->
-  <nav aria-label="Tabla de Contenidos" class="sticky top-0 z-50 bg-[--bg-white-95] backdrop-blur shadow-sm border-b border-gray-200">
-    <div class="max-w-4xl mx-auto px-4 overflow-x-auto">
-      <ul class="flex items-center gap-8 py-4 whitespace-nowrap list-none">
-        <li>
-          <a href="#introduccion" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
-            <span class="material-icons-outlined text-sm">flight_takeoff</span>
-            1. Introducción
-          </a>
-        </li>
-        <li>
-          <a href="#materiales" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
-            <span class="material-icons-outlined text-sm">inventory_2</span>
-            2. Materiales
-          </a>
-        </li>
-        <li>
-          <a href="#paso1" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
-            <span class="material-icons-outlined text-sm">filter_1</span>
-            3. Pliegue Inicial
-          </a>
-        </li>
-        <li>
-          <a href="#paso2" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
-            <span class="material-icons-outlined text-sm">filter_2</span>
-            4. La Punta
-          </a>
-        </li>
-        <li>
-          <a href="#paso3" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
-            <span class="material-icons-outlined text-sm">filter_3</span>
-            5. Ensamblaje
-          </a>
-        </li>
-        <li>
-          <a href="#consejos" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
-            <span class="material-icons-outlined text-sm">tips_and_updates</span>
-            6. Consejos
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <!-- 🖼️ TOP MENU HERO SECTION (Organismo) -->
+    <header class="hero-section relative w-full h-80 flex items-center justify-center">
+      <!-- Imagen de fondo temática (Unsplash) -->
+      <img src="https://images.unsplash.com/photo-1518175923984-d62fbc04deac?q=80&w=1920&auto=format&fit=crop" alt="Portada Avión de Papel" class="absolute inset-0 w-full h-full object-cover z-0">
+      <!-- Capa de contraste oscura -->
+      <div class="absolute inset-0 bg-[--bg-black-50] z-10"></div>
+      
+      <!-- Texto superpuesto sobre la imagen -->
+      <div class="relative z-20 text-center px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">Manual del Dardo Aerodinámico</h1>
+        <p class="text-xl text-gray-200 drop-shadow">Guía definitiva paso a paso para construir el avión de papel perfecto con precisión milimétrica.</p>
+      </div>
+    </header>
 
-  <!-- 📄 EL DOCUMENTO (ESTILO PDF) -->
-  <main class="document-page bg-white shadow-page max-w-4xl w-full mx-auto my-12 rounded-md overflow-hidden relative z-30">
+    <!-- 📑 BARRA DE MENÚ SUPERIOR (Índice Minimalista Topbar) -->
+    <nav aria-label="Tabla de Contenidos" class="sticky top-0 z-50 bg-[--bg-white-95] backdrop-blur shadow-sm border-b border-gray-200">
+      <div class="w-full px-4 overflow-x-auto">
+        <ul class="flex items-center gap-8 py-4 whitespace-nowrap list-none">
+          <li>
+            <a href="#introduccion" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+              <span class="material-icons-outlined text-sm">flight_takeoff</span>
+              1. Introducción
+            </a>
+          </li>
+          <li>
+            <a href="#materiales" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+              <span class="material-icons-outlined text-sm">inventory_2</span>
+              2. Materiales
+            </a>
+          </li>
+          <li>
+            <a href="#paso1" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+              <span class="material-icons-outlined text-sm">filter_1</span>
+              3. Pliegue Inicial
+            </a>
+          </li>
+          <li>
+            <a href="#paso2" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+              <span class="material-icons-outlined text-sm">filter_2</span>
+              4. La Punta
+            </a>
+          </li>
+          <li>
+            <a href="#paso3" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+              <span class="material-icons-outlined text-sm">filter_3</span>
+              5. Ensamblaje
+            </a>
+          </li>
+          <li>
+            <a href="#consejos" class="index-link flex items-center gap-2 text-gray-500 transition-colors border-b-2 border-transparent pb-1">
+              <span class="material-icons-outlined text-sm">tips_and_updates</span>
+              6. Consejos
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- 📄 EL DOCUMENTO (ESTILO PDF) -->
+    <main class="document-page w-full relative z-30">
     
     <!-- CUERPO DEL DOCUMENTO -->
     <div class="document-body px-8 py-10 md:px-16 md:py-16">
@@ -454,7 +457,8 @@
       </div>
     </footer>
 
-  </main>
+    </main>
+  </div>
 </div>
 
 <!-- ⚙️ Script para el Scroll Spy (Topbar interactiva) -->

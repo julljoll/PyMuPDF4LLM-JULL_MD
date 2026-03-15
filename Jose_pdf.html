@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Alimentación - Jose</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <style>
+        /* CSS Variables - Atomic Design Foundation */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --max-width: 56rem; /* max-w-4xl */
+        }
+
+        /* Base Resets */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-page); 
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Utility Classes (Tailwind-like) */
+        .max-w-4xl { max-width: var(--max-width); }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .p-4 { padding: 1rem; }
+        .p-8 { padding: 2rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-8 { padding-left: 2rem; padding-right: 2rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mb-14 { margin-bottom: 3.5rem; }
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .text-white { color: white; }
+        .text-gray-200 { color: #e5e7eb; }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-500 { color: #6b7280; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-800 { color: #1f2937; }
+        .text-blue-500 { color: var(--primary); }
+        .bg-white { background-color: white; }
+        .bg-gray-50 { background-color: #f9fafb; }
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .rounded-md { border-radius: 0.375rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .border-b { border-bottom: 1px solid var(--border); }
+        .border-t { border-top: 1px solid var(--border); }
+        .sticky { position: sticky; }
+        .top-0 { top: 0; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-30 { z-index: 30; }
+        .z-50 { z-index: 50; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .h-80 { height: 20rem; }
+        .object-cover { object-fit: cover; }
+        .overflow-hidden { overflow: hidden; }
+        .overflow-x-auto { overflow-x: auto; }
+        .whitespace-nowrap { white-space: nowrap; }
+        .transition-colors { transition: color 0.2s, border-color 0.2s; }
+        .list-none { list-style: none; }
+        .aspect-video { aspect-ratio: 16 / 9; }
+        .leading-relaxed { line-height: 1.625; }
+        .drop-shadow-md { filter: drop-shadow(0 4px 3px rgba(0,0,0,0.4)); }
+        .scroll-mt-24 { scroll-margin-top: 6rem; }
+
+        /* Specific Component Styles */
+        .layout-wrapper { display: flex; flex-direction: column; min-height: 100vh; }
+        
+        .hero-section { background-color: #000; overflow: hidden; }
+        .hero-overlay { background: rgba(0,0,0,0.5); }
+        
+        .index-link { text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 4px; }
+        .index-link.active { color: var(--primary); border-color: var(--primary); }
+
+        .meal-card { 
+            background: white; 
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .option-badge {
+            display: inline-block;
+            background: #eff6ff;
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+        }
+        .meal-item { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 0.75rem; 
+            margin-bottom: 0.5rem; 
+            font-size: 0.95rem;
+            color: var(--text-gray-700);
+        }
+        .meal-item::before {
+            content: "check_circle";
+            font-family: 'Material Icons Outlined';
+            font-size: 1.1rem;
+            color: #10b981;
+            margin-top: 2px;
+        }
+
+        .note-box {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        /* Print/PDF-like margins adjustment for mobile */
+        @media (max-width: 768px) {
+            .document-body { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+            .document-page { margin-top: 0; margin-bottom: 0; border-radius: 0; }
+            .hero-section { height: 12rem; }
+            .text-4xl { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="layout-wrapper">
+    
+    <!-- HERO SECTION -->
+    <header class="hero-section relative w-full h-80 flex items-center justify-center">
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=1920&auto=format&fit=crop" alt="Saludable" class="absolute inset-0 w-full h-full object-cover z-0">
+        <div class="absolute inset-0 hero-overlay z-10"></div>
+        <div class="relative z-20 text-center px-4 max-w-4xl">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">Plan de Alimentación</h1>
+            <p class="text-xl text-gray-200 drop-shadow">Estrategia nutricional personalizada para Jose</p>
+        </div>
+    </header>
+
+    <!-- STICKY TOPBAR INDEX -->
+    <nav aria-label="Navegación del plan" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b">
+        <div class="max-w-4xl mx-auto px-4 overflow-x-auto">
+            <ul class="flex items-center gap-6 py-4 whitespace-nowrap list-none">
+                <li>
+                    <a href="#comida1" class="index-link flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors">
+                        <span class="material-icons-outlined text-sm">restaurant</span>
+                        Comida 1
+                    </a>
+                </li>
+                <li>
+                    <a href="#comida2" class="index-link flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors">
+                        <span class="material-icons-outlined text-sm">restaurant_menu</span>
+                        Comida 2
+                    </a>
+                </li>
+                <li>
+                    <a href="#comida3" class="index-link flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors">
+                        <span class="material-icons-outlined text-sm">dinner_dining</span>
+                        Comida 3
+                    </a>
+                </li>
+                <li>
+                    <a href="#comida4" class="index-link flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors">
+                        <span class="material-icons-outlined text-sm">bakery_dining</span>
+                        Comida 4
+                    </a>
+                </li>
+                <li>
+                    <a href="#comida5" class="index-link flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors">
+                        <span class="material-icons-outlined text-sm">flatware</span>
+                        Comida 5
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- DOCUMENT PAGE -->
+    <main class="document-page bg-white shadow-xl max-w-4xl w-full mx-auto my-12 rounded-lg overflow-hidden relative z-30">
+        
+        <div class="document-body px-8 py-12 md:px-16 md:py-16">
+            
+            <!-- COMIDA 1 -->
+            <section id="comida1" class="mb-14 scroll-mt-24">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                    <span class="material-icons-outlined text-blue-500">breakfast_dining</span>
+                    Comida 1: Desayuno Energético
+                </h2>
+                <div class="mb-8 rounded-lg overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=800&auto=format&fit=crop" alt="Desayuno" class="w-full aspect-video object-cover">
+                </div>
+                
+                <div class="meal-card">
+                    <span class="option-badge">Opción 1</span>
+                    <div class="meal-item">50g de corn flakes (sin azúcar añadido)</div>
+                    <div class="meal-item">200 - 250 ml de leche (elige la que te venga bien)</div>
+                    <div class="meal-item">3 huevos (tortilla, cocidos o revueltos)</div>
+                    <div class="meal-item"><i>Si tienes proteína en polvo, agrega 50g a la leche y quita los huevos</i></div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 2</span>
+                    <div class="meal-item">3 rebanadas de pan sándwich</div>
+                    <div class="meal-item">2 huevos</div>
+                    <div class="meal-item">30g de jamón cocido York</div>
+                    <div class="meal-item">1/2 aguacate</div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 3</span>
+                    <div class="meal-item">40g de avena (batido, cocida, etc.)</div>
+                    <div class="meal-item">1 banana grande</div>
+                    <div class="meal-item">2 huevos + 50g de jamón cocido</div>
+                </div>
+            </section>
+
+            <!-- COMIDA 2 -->
+            <section id="comida2" class="mb-14 scroll-mt-24">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                    <span class="material-icons-outlined text-blue-500">lunch_dining</span>
+                    Comida 2: Media Mañana
+                </h2>
+                <div class="mb-8 rounded-lg overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1505575967455-40e256f73376?q=80&w=800&auto=format&fit=crop" alt="Snack" class="w-full aspect-video object-cover">
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 1</span>
+                    <div class="meal-item">1 banana grande</div>
+                    <div class="meal-item">1 taza de avena 30g</div>
+                    <div class="meal-item">200 - 250 ml de leche</div>
+                    <div class="meal-item">Puñado de frutos secos (20g)</div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 2</span>
+                    <div class="meal-item">4 tortas de arroz (arroz inflado)</div>
+                    <div class="meal-item">1 lata de atún (sin aceite vegetal)</div>
+                    <div class="meal-item">Puñado de frutos secos</div>
+                </div>
+            </section>
+
+            <!-- COMIDA 3 -->
+            <section id="comida3" class="mb-14 scroll-mt-24">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                    <span class="material-icons-outlined text-blue-500">dinner_dining</span>
+                    Comida 3: Almuerzo Principal
+                </h2>
+                <div class="mb-8 rounded-lg overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop" alt="Almuerzo" class="w-full aspect-video object-cover">
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 1</span>
+                    <div class="meal-item">200g de pollo</div>
+                    <div class="meal-item">150g de arroz cocido</div>
+                    <div class="meal-item">Ensalada fresca o verduras</div>
+                    <div class="meal-item">1/2 aguacate</div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 2</span>
+                    <div class="meal-item">200g de ternera o cerdo (sin grasa)</div>
+                    <div class="meal-item">300g de papas cocidas or puré</div>
+                    <div class="meal-item">Verduras o ensalada al gusto + 1/2 aguacate</div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 3</span>
+                    <div class="meal-item">150g de pasta cocida</div>
+                    <div class="meal-item">200g de carne picada</div>
+                    <div class="meal-item">Salsa de tomate natural</div>
+                </div>
+            </section>
+
+            <!-- COMIDA 4 -->
+            <section id="comida4" class="mb-14 scroll-mt-24">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                    <span class="material-icons-outlined text-blue-500">icecream</span>
+                    Comida 4: Merienda Ligera
+                </h2>
+                <div class="mb-8 rounded-lg overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=800&auto=format&fit=crop" alt="Merienda" class="w-full aspect-video object-cover">
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 1</span>
+                    <div class="meal-item">200g de yogurt griego 0%</div>
+                    <div class="meal-item">1 banana + 1 manzana o pera</div>
+                    <div class="meal-item">Puñado de frutos secos</div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 2</span>
+                    <div class="meal-item">200g de yogurt 0%</div>
+                    <div class="meal-item">40g de corn flakes (sin azúcar)</div>
+                </div>
+            </section>
+
+            <!-- COMIDA 5 -->
+            <section id="comida5" class="mb-14 scroll-mt-24">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                    <span class="material-icons-outlined text-blue-500">hotel_class</span>
+                    Comida 5: Cena Reparadora
+                </h2>
+                <div class="mb-8 rounded-lg overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=800&auto=format&fit=crop" alt="Cena" class="w-full aspect-video object-cover">
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 1</span>
+                    <div class="meal-item">3 rebanadas de pan sándwich</div>
+                    <div class="meal-item">3 huevos</div>
+                    <div class="meal-item">50g de jamón cocido York</div>
+                    <div class="meal-item">1/2 aguacate</div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 2</span>
+                    <div class="meal-item">60g de harina de maíz (arepa)</div>
+                    <div class="meal-item">2 huevos</div>
+                    <div class="meal-item">50g de jamón cocido + 1 rebanada de queso</div>
+                    <div class="meal-item">Vegetales (tipo perico)</div>
+                </div>
+
+                <div class="meal-card">
+                    <span class="option-badge">Opción 3</span>
+                    <div class="meal-item">200g de pollo o ternera</div>
+                    <div class="meal-item">150g de arroz cocido o 300g de papas</div>
+                    <div class="meal-item">Verduras o vegetales al gusto</div>
+                </div>
+            </section>
+
+            <!-- NOTES -->
+            <div class="note-box">
+                <h3 class="flex items-center gap-2 font-bold mb-2">
+                    <span class="material-icons-outlined text-yellow-600">tips_and_updates</span>
+                    Nota Importante
+                </h3>
+                <p class="text-gray-700 text-sm">
+                    Es importante que varíes los alimentos para que el plan no se haga monótono. El uso de salsas como ketchup o mostaza se puede hacer con moderación. Una vez a la semana puedes hacer una comida libre sin remordimientos. ¡Cuenta con mi apoyo para llegar a tu mejor versión!
+                </p>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="p-8 bg-gray-50 border-t text-center text-sm text-gray-500">
+            <p class="font-semibold text-gray-700 mb-2">© 2026 Plan de Alimentación - Jose. Todos los derechos reservados.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6 text-xs text-gray-400 mb-3">
+                <span class="flex items-center gap-1"><span class="material-icons-outlined text-xs">sell</span> Versión: 1.0</span>
+                <span class="flex items-center gap-1"><span class="material-icons-outlined text-xs">person</span> Creador: julljoll</span>
+                <a href="https://siriusweb.us" target="_blank" class="flex items-center gap-2 hover:text-blue-500 transition-colors">
+                    <span class="material-icons-outlined text-xs">language</span> siriusweb.us
+                </a>
+                <a href="mailto:julljoll@gmail.com" class="flex items-center gap-2 hover:text-blue-500 transition-colors">
+                    <span class="material-icons-outlined text-xs">email</span> julljoll@gmail.com
+                </a>
+            </div>
+
+            <p class="flex items-center justify-center gap-1">
+                Generado con <span class="material-icons-outlined text-red-500 text-sm">favorite</span> por Antigravity.
+            </p>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    // ScrollSpy Implementation
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.index-link');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

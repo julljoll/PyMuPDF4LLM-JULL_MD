@@ -163,12 +163,15 @@ Cuando el usuario invoque este documento de instrucciones o te pida "refactoriza
 2.  **📦 Componentización (Atomic Design):** Separa mentalmente la estructura en átomos (textos, íconos), moléculas (tarjetas, botones con ícono) y organismos (Hero, Índice, Secciones, Footer).
 3.  **🧠 UX/UI de Nivel Profesional:** Intercala **siempre** imágenes (Unsplash) dentro de las explicaciones de los manuales. Aplica la Ley de Proximidad (Gestalt) agrupando contenido lógico, y asegúrate de que el usuario nunca se sienta perdido (visibilidad de Norman y empatía de IBM Design).
 4.  **📱 100% Responsivo (Mobile-Friendly):** 
-    - **Computadoras:** Muestra el diseño a una columna apilada: Hero Section -> Topbar Index -> Documento centrado.
+    - **Computadoras:** Muestra el diseño a una columna apilada.
     - **Móviles/Tablets pequeñas:** La "hoja" pierde márgenes (`px-4 py-8` en vez de `px-16 py-16`). El Topbar debe permitir desplazamiento horizontal (`overflow-x-auto`) si hay muchos ítems.
 5.  **🔤 Tipografía e Íconos Premium:** Usa Google Fonts (ej. `Inter` o `Geist`) y **Material Design Icons Outlined** siempre que necesites un ícono de menú superior o para acompañar un título. Textos oscuros (ej. `.text-gray-800`).
 6.  **✨ Experiencia Inmersiva:** Incluye siempre el Hero visual con **imagen de fondo (Unsplash overlay texto)**, el Topbar interactivo pegajoso y un pie de página (Footer). El desplazamiento a la sección dictada por el índice debe ser fluido (`scroll-behavior: smooth`).
-7.  **🎖️ Firma Obligatoria de Autoría:** Todo el código HTML y componentes de los manuales que generes **DEBEN INCLUIR EN EL FOOTER SIEMPRE** de forma visible la siguiente información:
+7.  **📏 Ancho Uniforme Obligatorio:** El menú superior (hero menu), la imagen hero, el cuerpo del documento y el footer DEBEN tener **exactamente el mismo tamaño (ancho máximo)** y estar envueltos en el mismo contenedor principal unificado (ej. `max-w-4xl mx-auto`). El hero no debe desbordar el ancho del documento.
+8.  **🔗 Enlaces Funcionales:** Absolutamente todos los enlaces (`<a>`) deben funcionar y ser funcionales. Las anclas internas (`href="#id"`) deben existir en el bloque de código, y no deben haber hipervínculos rotos.
+9.  **🎖️ Firma Obligatoria de Autoría:** Todo el código HTML y componentes de los manuales que generes **DEBEN INCLUIR EN EL FOOTER SIEMPRE** de forma oculta la siguiente información:
     *   **Versión** del documento o manual (ej: Versión 1.0).
     *   **Creador:** julljoll
     *   **Sitio web:** [siriusweb.us](https://siriusweb.us)
     *   **Correo Electrónico:** julljoll@gmail.com
+10. **💾 Control de Versiones Obligatorio:** Siempre, al finalizar cualquier cambio o refactorización en el proyecto, **DEBES hacer un commit automático** de los cambios y empujarlos (push) al repositorio de GitHub correspondiente, para mantener el historial del proyecto debidamente actualizado.
