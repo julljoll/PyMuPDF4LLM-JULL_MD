@@ -23,6 +23,7 @@ tags: [ux, gestalt, autonomous, light-mode, ghl-ready]
 | **Colores** | Fondo `#f8fafc` / Texto `#1e293b` (solo Light Mode) |
 | **Contraste** | Verificar ratio ≥ 4.5:1 entre texto y fondo (WCAG AA). Títulos, labels y contenido deben diferenciarse por peso, tamaño y color |
 | **Guía Visual** | Usa jerarquía tipográfica (tamaño + peso) y color diferenciado para que el usuario distinga al instante a qué pertenece cada bloque (título, etiqueta, contenido, nota) |
+| **60-30-10** | 60% color dominante (fondo `#f8fafc`), 30% secundario (cards `#ffffff`, nav), 10% acento (títulos, links, iconos destacados) |
 
 ---
 
