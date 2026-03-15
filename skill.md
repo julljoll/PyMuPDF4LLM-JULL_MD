@@ -21,6 +21,8 @@ tags: [ux, gestalt, autonomous, light-mode, ghl-ready]
 | **Proximidad** | Agrupa contenido relacionado con espacios blancos |
 | **Minimalismo** | Elimina lo innecesario, deja que el contenido respire |
 | **Colores** | Fondo `#f8fafc` / Texto `#1e293b` (solo Light Mode) |
+| **Contraste** | Verificar ratio ≥ 4.5:1 entre texto y fondo (WCAG AA). Títulos, labels y contenido deben diferenciarse por peso, tamaño y color |
+| **Guía Visual** | Usa jerarquía tipográfica (tamaño + peso) y color diferenciado para que el usuario distinga al instante a qué pertenece cada bloque (título, etiqueta, contenido, nota) |
 
 ---
 
