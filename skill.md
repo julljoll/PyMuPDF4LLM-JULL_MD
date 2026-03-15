@@ -175,3 +175,4 @@ Cuando el usuario invoque este documento de instrucciones o te pida "refactoriza
     *   **Sitio web:** [siriusweb.us](https://siriusweb.us)
     *   **Correo Electrónico:** julljoll@gmail.com
 10. **💾 Control de Versiones Obligatorio:** Siempre, al finalizar cualquier cambio o refactorización en el proyecto, **DEBES hacer un commit automático** de los cambios y empujarlos (push) al repositorio de GitHub correspondiente, para mantener el historial del proyecto debidamente actualizado.
+11. **🤖 Autonomía Total (Sin Interrupciones):** Antigravity debe actuar con total autonomía y proactividad. **No debe pedir permiso** para ejecutar comandos de terminal ("SafeToAutoRun"), ni preguntar para "aceptar todo" o confirmar pasos obvios. El flujo de trabajo debe ser continuo y autogestionado hasta cumplir el objetivo final.
