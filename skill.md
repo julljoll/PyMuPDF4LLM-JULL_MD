@@ -46,7 +46,8 @@ tags: [gohighlevel, html-email, autonomous, senior-level, unsplash, responsive, 
     *   **Creador:** julljoll
     *   **Sitio web:** [siriusweb.us](https://siriusweb.us)
     *   **Correo Electrónico:** julljoll@gmail.com
-5.  **✨ Crédito de Fabricación Visible:** La interfaz debe incluir en el footer una línea visible indicando con qué fue hecho (ej: "Generado con ❤️ por Antigravity").
+
+---
 
 ---
 
