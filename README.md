@@ -1,53 +1,104 @@
-# 📄 Creador PDF (Generador de One-Pages Interactivos)
+# 📄 Creador PDF (Next.js PDF Generator Framework)
 
-Bienvenido a **Creador PDF**, un repositorio de recursos y lineamientos arquitectónicos de diseño (UI/UX) diseñado para estandarizar e instruir a modelos de IA en la generación de One-Pages enriquecidas para la lectura web simulando documentos o PDFs profesionales.
+Bienvenido a **Creador PDF**, un framework moderno y profesional basado en **Next.js** y **`@react-pdf/renderer`** para la generación programática de documentos PDF de alta calidad editorial. 
 
-Este proyecto está construido alrededor del "Estándar de Oro" definido en el archivo principal `skill.md`.
+Este proyecto está diseñado para estandarizar la creación de informes técnicos, comerciales y agrícolas complejos (como el informe del predio **La Cigarronera**), permitiendo a desarrolladores e inteligencias artificiales generar PDFs consistentes a partir de datos estructurados.
+
+El núcleo arquitectónico y las directrices detalladas de diseño se encuentran en el archivo principal [skill.md](file:///c:/Users/jull/Documents/crearpdf/skill.md).
 
 ---
 
-## 🎯 Objetivo del Proyecto
+## 🏗️ Arquitectura del Sistema
 
-El servidor actual como repositorio en GitHub se encarga de proveer a una IA un conjunto estricto de directrices (`script` o `skill`) que enseñan mecánicamente cómo transformar la solicitud de un usuario (para escribir un manual, tutorial, artículo, etc.) en un documento final codificado en un solo archivo `.html`.
+El framework está construido sobre las siguientes tecnologías y principios:
+*   **Next.js 14+ (App Router):** Estructura modular de páginas y rutas API nativas.
+*   **TypeScript (Strict Mode):** Tipado seguro para toda la estructura de configuración del documento.
+*   **@react-pdf/renderer:** Motor de renderizado vectorial de PDFs en servidor y previsualización interactiva en cliente.
+*   **Tailwind CSS:** Utilizado exclusivamente para la interfaz de control del navegador (el preview y editor web).
+*   **Diseño Modular:** Portadas, tablas, métricas y bloques de información desacoplados y parametrizados.
 
-El diseño resultante eleva de manera crítica la experiencia de exploración al simular los bordes y estética de una hoja de papel (Dimensión tipo A4 o Carta), pero sumando las ventajas de la interactividad web.
+---
 
-## ⚙️ ¿Cómo Funciona?
+## ⚡ Guía de Inicio Rápido en 5 Pasos
 
-El núcleo de este repositorio se centra en las reglas dictaminadas dentro de **`skill.md`**.
-Cuando la IA es instruida para crear un nuevo manual, está forzada (mediante lectura previa obligatoria) a inyectar las siguientes reglas estructurales en su desarrollo:
+### Paso 1: Instalación de Dependencias
+Instala los paquetes necesarios en tu proyecto Next.js:
+```bash
+npm install @react-pdf/renderer lucide-react zod zustand
+npm install -D typescript @types/node @types/react
+```
 
-### 1. Arquitectura Técnica (El Código)
-- **Atomic Design y Utilitarias:** Se rechaza el uso de pesados y ruidosos marcos CSS externos. Todo el código CSS se inyecta nativamente imitando los esquemas de utilitarias de **Tailwind CSS**, priorizando el rendimiento y limpieza sin cargar librerías.
-- **Responsividad Nativa:** Se utilizan Flexbox y Grid sistemáticamente garantizando un diseño amigable tanto en computadoras (formato Desktop de Hero e Índice lateral/superior) como en Móviles.
+### Paso 2: Configurar los Tokens de Diseño (`theme.ts`)
+Define tu paleta de colores, fuentes y márgenes en `components/pdf/styles/theme.ts`. El sistema de "La Cigarronera" utiliza por defecto tonos verdes, dorados y ocre:
+```typescript
+export const theme = {
+  colors: {
+    primary: '#1B4332',     // Verde Selva Profundo
+    accent: '#0F3460',      // Azul / Verde Acento
+    accentBright: '#D4A017',// Dorado Fruto
+    cream: '#FAFAF5',       // Fondo de página
+    // ...
+  },
+  // ...
+};
+```
 
-### 2. Principios UX/UI Cognitivos (El Usuario)
-La IA no solo escupe contenido HTML, sino que ha sido "entrenada" sobre este documento para integrar principios ergonómicos empresariales de grandes corporaciones:
-- **Ley de Proximidad (Gestalt):** El texto no compite con la imagen. Conviven respetando márgenes cognitivos para facilitar el escaneo del ojo.
-- **Minimalismo y Affordance (Don Norman):** Cada línea de sombra, ícono y menú denota clicabilidad obvia sin recargar la interfaz visual (Sin ruido, menos es más).
-- **Enfoque Centrado en Usuario (IBM Design):** Los lenguajes utilizados para explicar guías no son robóticos. Emplean lenguaje empático y cajas de información contextuales enfocadas en que el usuario no fracase la ejecución.
-- **Explicación Dual (Texto + Imagen):** Es obligatorio en la creación de cada parte o paso del manual incluir fotografías obtenidas dinámicamente de **Unsplash**.
+### Paso 3: Definir la Estructura del Documento (`DocumentConfig`)
+Crea tu archivo JSON de entrada de datos respetando la estructura tipada en `types/document.types.ts`. Este JSON define la portada, las cabeceras, y el contenido por secciones con sus layouts específicos.
 
-### 3. Estructura de "Organismos" Requeridos
-Cada `.html` producido hereda obligatoriamente estas partes:
-1.  **Hero Section:** Una superposición envolvente donde la imagen Unsplash abarca todo el ancho, y el texto flota con iluminación contrastada sobre ella.
-2.  **Top NavBar (Índice):** Menú de navegación minimalista interactivo que sigue tu lectura (Sticky Top) iluminando con íconos vectoriales Dónde te encuentras en un momento dado en la lectura (IntersectionObserver ligero).
-3.  **Documento PDF Centralizado:** La "hoja blanca" central con abundante padding lateral, sombra suave y un contenedor maximizado centrado (Max-W-4xl) para no estresar el recorrido ocular.
-4.  **Footer Corporativo:** Una zona firme en la base del documento conteniendo metadatos de versión y datos de autoría exigidos.
+### Paso 4: Iniciar el Servidor de Desarrollo
+Inicia Next.js para visualizar el editor e interactuar con el PDFViewer en tiempo real:
+```bash
+npm run dev
+```
+Accede a `http://localhost:3000` para abrir el panel de control interactivo.
 
-## 🧰 Recursos Gráficos Integrados
-*   **Google Fonts:** Tipografía limpia y moderna sin-serif típica del software premium (por ej. `Inter`).
-*   **Material Design Outlined:** Todos los íconos del índice y descripciones utilizan el formato Outlined de Google Fonts con CSS insertado.
-*   **Unsplash Source:** Imágenes temáticas, fotográficas y reales aleatorias usando resolución y recorte específico de las peticiones por URL.
+### Paso 5: Generar y Consumir el PDF
+Realiza una solicitud POST a la ruta API `/api/generate-pdf` enviando el JSON de configuración para obtener el archivo binario del PDF.
 
-## 🎖️ Autores y Contacto
+---
 
-Estos scripts de orquestación gráfica han sido ensamblados por *julljoll* bajo el dominio Sirius Web. Todo contenido emitido o renderizado con este skill integra este sello de autoría nativo en el output del código generado.
+## 🛠️ Guía de Extensión y Uso
+
+### 1. Cómo agregar una nueva sección al PDF
+Para añadir una sección, simplemente agrega un nuevo elemento al arreglo `sections` en tu JSON de entrada (ej: `data/sample-document.json`). No necesitas escribir código CSS:
+```json
+{
+  "id": "seccion-nueva",
+  "sectionNumber": "12",
+  "title": "Nueva Sección de Análisis",
+  "layout": "TEXT_IMAGE_RIGHT",
+  "mainContent": [
+    {
+      "type": "paragraph",
+      "text": "Este es el texto descriptivo que aparecerá en la columna izquierda..."
+    }
+  ],
+  "sideImage": {
+    "src": "https://images.unsplash.com/photo-...",
+    "alt": "Imagen descriptiva",
+    "caption": "Fig. 20 — Análisis fotográfico detallado."
+  }
+}
+```
+
+### 2. Cómo cambiar el esquema de color
+El framework admite temas predefinidos o colores personalizados. Puedes configurar el parámetro `colorScheme` en el JSON principal o editar directamente `components/pdf/styles/theme.ts` para cambiar globalmente el aspecto visual del documento sin alterar los componentes.
+
+### 3. Cómo usar la API desde otro servicio
+La API responde a peticiones HTTP POST externas enviando el PDF listo para descargar.
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d @document-config.json \
+  --output informe.pdf \
+  https://tu-dominio.com/api/generate-pdf
+```
+
+---
+
+## 🎖️ Autores y Licencia
 
 *   **Creador:** julljoll
-*   **Versionamiento Estándar:** 1.0
-*   **Sitio web Oficial:** [siriusweb.us](https://siriusweb.us)
-*   **Contacto Electrónico:** julljoll@gmail.com
-
----
-*Este repositorio es mantenido con fines de desarrollo generativo de interfaces enriquecidas (Generative UI/UX).*
+*   **Sitio Web:** [siriusweb.us](https://siriusweb.us)
+*   **Licencia:** Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](file:///c:/Users/jull/Documents/crearpdf/LICENSE) para más detalles.
