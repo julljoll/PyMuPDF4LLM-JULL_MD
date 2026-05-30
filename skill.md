@@ -71,7 +71,8 @@ El framework Next.js adopta los siguientes lineamientos HIG de interfaz de usuar
 
 ## 🤖 REGLAS DE EJECUCIÓN Y EXPORTACIÓN
 
+*   **Creación de Página HTML Previa:** Siempre que se cree o genere un nuevo PDF, se debe diseñar e implementar primero una versión o página HTML equivalente del mismo. Esto permite visualizar, validar y refinar la estructura y el diseño en la web antes de proceder a compilar y generar el archivo PDF definitivo.
 *   **Integridad y Saltos de Página:** Evita que las tablas o cajas de llamadas (`PDFCallout`) se partan entre páginas usando envolturas lógicas. Introduce saltos de página obligatorios antes de cada sección principal.
 *   **API POST Integrada:** La API `/api/generate-pdf` debe validar la estructura del JSON y procesar de manera segura todas las URLs de imágenes a base64 antes de compilar.
 *   **Firma Oculta:**
-    `Versión: 6.0 · Creador: julljoll · Web: siriusweb.us · Email: julljoll@gmail.com · Estilo: Human Interface Guidelines (Apple)`
+    `Versión: 6.0 · Creador: julljoll · Web: siriusweb.us · Email: julljoll@gmail.com · Estilo: Human Interface Guidelines (Apple)``
