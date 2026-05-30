@@ -56,16 +56,23 @@ El framework conserva de forma desacoplada la paleta de colores original basada 
 
 ## 🏗️ ARQUITECTURA TÉCNICA E INTERFAZ WEB
 
-El framework Next.js adopta los siguientes lineamientos HIG de interfaz de usuario de macOS e iPadOS para su dashboard:
+El dashboard web del framework Next.js debe adoptar de forma estricta los lineamientos estéticos y de interfaz de usuario (UI) de macOS e iPadOS para ofrecer una experiencia premium y nativa:
 
-1.  **Split Screen Integrado:**
-    *   El panel izquierdo contiene el editor de configuración del documento, estructurado con un control segmentado nativo (pestañas Visual vs RAW JSON) y inputs limpios.
-    *   El panel derecho alberga la vista previa vectorial con una cabecera oscura minimalista y visor sin bordes toscos.
-2.  **Deferencia en Formularios:**
-    *   Los formularios utilizan campos con bordes finos, fuentes sin-serif modernas (`Inter` / `SF Pro`) y botones prominentes con esquinas redondeadas generosas (`rounded-xl` en Tailwind).
-    *   Los botones primarios de acción utilizan la tonalidad `#007AFF` (System Blue).
-3.  **Encapsulamiento Estricto:**
-    *   Toda variable visual se extrae directamente de `theme.ts` mediante el helper `getThemeColors(scheme, customColors)`. Ningún componente PDF posee estilos codificados directamente.
+1.  **Tipografía HIG del Sistema:**
+    *   La tipografía por defecto debe configurarse utilizando la pila tipográfica de Apple: `-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Compact", "Inter", sans-serif`.
+2.  **Paleta de Colores de Interfaz (macOS/iOS Dark Mode):**
+    *   **Fondo General (System Black):** El fondo principal del dashboard debe ser negro puro (`#000000`).
+    *   **Fondo de Paneles (System Gray 6 / Elevated):** Las tarjetas y paneles principales (como el editor y el visor) utilizan `#1C1C1E` con bordes delgados en `#2C2C2E`.
+    *   **Campos de Texto e Inputs:** Fondo `#2C2C2E` con bordes finos en `#3A3A3C` y texto en `#FFFFFF`. El foco (`focus`) debe colorear el borde en `#0A84FF` sin anillos toscos.
+    *   **Acentos y Botones Activos:** Utilizar `#0A84FF` (System Blue) para botones de acción principal, estados activos y selectores.
+3.  **Split Screen Integrado y Translucidez (Glassmorphism):**
+    *   El panel izquierdo contiene el editor de configuración estructurado con un control segmentado nativo (Visual vs JSON) y inputs limpios.
+    *   El panel derecho alberga el visor del PDF de manera limpia y sin bordes sobrecargados.
+    *   La barra de navegación (`header`) debe ser translúcida utilizando `rgba(28, 28, 30, 0.7)` combinado con `backdrop-blur-md` y un borde inferior fino en `rgba(255, 255, 255, 0.1)`.
+    *   Los bordes de las tarjetas y botones deben emplear esquinas redondeadas continuas HIG con radio de `12px` (equivalente a `rounded-xl`).
+4.  **Encapsulamiento Estricto de Temas PDF:**
+    *   Toda variable visual del documento PDF se extrae directamente de `theme.ts` mediante el helper `getThemeColors(scheme, customColors)`. Ningún componente PDF posee estilos codificados directamente.
+
 
 ---
 

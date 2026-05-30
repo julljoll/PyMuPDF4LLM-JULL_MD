@@ -47,19 +47,19 @@ export default function Dashboard() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col antialiased">
+    <main className="min-h-screen bg-apple-bg text-apple-text flex flex-col antialiased">
       {/* Barra de Navegación Estilo macOS HIG (Translúcida y minimalista) */}
-      <header className="bg-slate-900/60 backdrop-blur-md border-b border-slate-900/80 px-8 py-3.5 sticky top-0 z-50 flex items-center justify-between">
+      <header className="apple-header px-8 py-3.5 sticky top-0 z-50 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           {/* Logo estilo App Icon redondeado HIG */}
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20">
+          <div className="w-8 h-8 rounded-xl bg-apple-blue flex items-center justify-center font-bold text-white shadow-lg shadow-apple-blue/20">
             P
           </div>
           <div>
-            <h1 className="text-sm font-bold text-slate-100 tracking-tight leading-none">
+            <h1 className="text-sm font-bold text-apple-text tracking-tight leading-none">
               Creador PDF
             </h1>
-            <p className="text-[9px] text-slate-400 font-semibold tracking-wide uppercase mt-1">
+            <p className="text-[9px] text-apple-text-secondary font-semibold tracking-wide uppercase mt-1">
               Human Interface Guidelines Standard
             </p>
           </div>
@@ -70,10 +70,10 @@ export default function Dashboard() {
           <button
             onClick={handleDownloadPDF}
             disabled={isDownloading}
-            className={`px-4 py-1.5 text-xs font-semibold rounded-lg shadow transition-all ${
+            className={`px-4 py-1.5 text-xs font-semibold rounded-xl transition-all ${
               isDownloading
-                ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                : 'bg-blue-600 hover:bg-blue-500 text-white active:scale-[0.98]'
+                ? 'bg-apple-input text-apple-text-secondary cursor-not-allowed'
+                : 'bg-apple-blue hover:bg-apple-blue-hover text-white active:scale-[0.98] shadow-md shadow-apple-blue/10'
             }`}
           >
             {isDownloading ? (
