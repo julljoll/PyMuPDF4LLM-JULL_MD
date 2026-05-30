@@ -1,0 +1,65 @@
+// components/ui/PreviewPanel.tsx
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { ThemeColors } from '../pdf/styles/theme';
+import { DocumentConfig } from '../../types/document.types';
+
+// Importación dinámica del PDFViewer de react-pdf para evitar errores de SSR (window is not defined)
+const PDFViewerWithSSR = dynamic(
+  () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
+  { ssr: false, loading: () => <p className="text-slate-400 font-medium text-xs">Cargando visor de PDF...</p> }
+);
+
+// Importación del PDFDocument de manera segura
+const PDFDocumentWithSSR = dynamic(
+  () => import('../pdf/PDFDocument').then((mod) => mod.PDFDocument),
+  { ssr: false }
+);
+
+interface PreviewPanelProps {
+  config: DocumentConfig;
+  colors: ThemeColors;
+}
+
+export const PreviewPanel: React.FC<PreviewPanelProps> = ({ config, colors }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <div className="flex items-center justify-center h-full bg-slate-900 border border-slate-800/80 rounded-2xl">
+        <p className="text-slate-400 text-xs">Iniciando previsualización...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col h-full bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden shadow-2xl transition-all">
+      {/* Barra de cabecera de Preview (Estilo macOS Title Bar) */}
+      <div className="flex items-center justify-between px-6 py-3.5 bg-slate-950/80 border-b border-slate-800/80 backdrop-blur-md">
+        <div className="flex items-center space-x-2">
+          <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+          <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider pl-1">
+            Previsualización del PDF
+          </h2>
+        </div>
+        <span className="text-[10px] font-semibold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+          Papel: Oficio / Legal
+        </span>
+      </div>
+
+      {/* Visor del PDF */}
+      <div className="flex-1 bg-slate-900 relative">
+        <PDFViewerWithSSR className="w-full h-full border-none" showToolbar={true}>
+          <PDFDocumentWithSSR config={config} />
+        </PDFViewerWithSSR>
+      </div>
+    </div>
+  );
+};
+export default PreviewPanel;
