@@ -6,16 +6,10 @@ import dynamic from 'next/dynamic';
 import { ThemeColors } from '../pdf/styles/theme';
 import { DocumentConfig } from '../../types/document.types';
 
-// Importación dinámica del PDFViewer de react-pdf para evitar errores de SSR (window is not defined)
-const PDFViewerWithSSR = dynamic(
-  () => import('@react-pdf/renderer').then((mod) => mod.PDFViewer),
+// Importación dinámica del visor completo (Viewer + Document) para evitar errores de SSR y reconciliación
+const PDFViewerComponent = dynamic(
+  () => import('../pdf/PDFViewerComponent'),
   { ssr: false, loading: () => <p className="text-slate-400 font-medium text-xs">Cargando visor de PDF...</p> }
-);
-
-// Importación del PDFDocument de manera segura
-const PDFDocumentWithSSR = dynamic(
-  () => import('../pdf/PDFDocument').then((mod) => mod.PDFDocument),
-  { ssr: false }
 );
 
 interface PreviewPanelProps {
@@ -55,9 +49,7 @@ export const PreviewPanel: React.FC<PreviewPanelProps> = ({ config, colors }) =>
 
       {/* Visor del PDF */}
       <div className="flex-1 bg-slate-900 relative">
-        <PDFViewerWithSSR className="w-full h-full border-none" showToolbar={true}>
-          <PDFDocumentWithSSR config={config} />
-        </PDFViewerWithSSR>
+        <PDFViewerComponent config={config} />
       </div>
     </div>
   );
