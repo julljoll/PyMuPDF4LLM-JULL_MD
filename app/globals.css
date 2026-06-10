@@ -57,6 +57,27 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-macos-bg);
+  color: var(--color-macos-card-fg);
+}
+
+.dark {
+  --color-macos-bg: #141414;
+  --color-macos-card: #1E1E1E;
+  --color-macos-card-fg: #E8E8E8;
+  --color-macos-muted: #2C2C2E;
+  --color-macos-muted-fg: #98989D;
+  --color-macos-border: #383838;
+  --color-macos-input: #2C2C2E;
+  --color-macos-primary: #0A84FF;
+  --color-macos-primary-fg: #FFFFFF;
+  --color-macos-accent: #1A2A3A;
+  --color-macos-accent-fg: #66B0FF;
+  --color-macos-sidebar: rgba(28, 28, 30, 0.85);
+  --color-macos-toolbar: rgba(44, 44, 46, 0.72);
+  --color-macos-glass: rgba(40, 40, 42, 0.6);
+  --shadow-macos: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-macos-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Glassmorphism macOS */
