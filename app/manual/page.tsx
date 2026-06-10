@@ -3,8 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 
-const Code: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <code className="bg-apple-input px-2 py-0.5 rounded text-[11px] text-apple-blue font-mono">{children}</code>
+const Code: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
+  <code className={`bg-apple-input px-2 py-0.5 rounded text-[11px] text-apple-blue font-mono ${className ?? ''}`}>{children}</code>
 );
 
 const CodeBlock: React.FC<{ children: React.ReactNode; lang?: string }> = ({ children, lang }) => (
