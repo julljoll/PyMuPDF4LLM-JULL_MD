@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Creador PDF — Next.js PDF Generator Framework",
-  description: "Framework programático premium para la generación de documentos PDF profesionales a partir de datos estructurados.",
+  title: "PyMuPDF4LLM — Conversor PDF a Markdown",
+  description: "Convierte documentos PDF a Markdown limpio y estructurado usando PyMuPDF4LLM. Optimizado para LLMs, RAG y edición humana.",
 };
 
 export default function RootLayout({
