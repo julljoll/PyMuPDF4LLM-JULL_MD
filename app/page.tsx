@@ -1,162 +1,162 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import Link from 'next/link';
-import { PdfUploader } from '../components/ui/PdfUploader';
-import { MarkdownPreview } from '../components/ui/MarkdownPreview';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MacWindow } from "@/components/ui/MacWindow";
+import { DropZone } from "@/components/ui/DropZone";
+import { MarkdownPreview } from "@/components/ui/MarkdownPreview";
+import { FileText, Sparkles, AlertCircle } from "lucide-react";
 
-type Status = 'idle' | 'uploading' | 'converting' | 'done' | 'error';
+export default function Home() {
+  const [markdown, setMarkdown] = useState("");
+  const [isConverting, setIsConverting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [stats, setStats] = useState<{ chars: number; words: number } | null>(null);
+  const [currentFile, setCurrentFile] = useState<string | undefined>();
 
-export default function ConverterPage() {
-  const [status, setStatus] = useState<Status>('idle');
-  const [markdown, setMarkdown] = useState('');
-  const [filename, setFilename] = useState('');
-  const [error, setError] = useState('');
-  const handleFileSelect = useCallback(async (file: File) => {
-    setStatus('uploading');
-    setError('');
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    setStatus('converting');
+  const handleFile = async (file: File) => {
+    setIsConverting(true);
+    setError(null);
+    setMarkdown("");
+    setStats(null);
+    setCurrentFile(file.name);
 
     try {
-      const res = await fetch('/api/convert-pdf', {
-        method: 'POST',
-        body: formData,
+      const form = new FormData();
+      form.append("file", file);
+
+      const res = await fetch("/api/convert", {
+        method: "POST",
+        body: form,
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Error al convertir el PDF');
+        setError(data.error ?? "Error desconocido");
+        return;
       }
 
       setMarkdown(data.markdown);
-      setFilename(data.filename || file.name.replace(/\.pdf$/i, '.md'));
-      setStatus('done');
-    } catch (err: unknown) {
-      const error = err as { message?: string };
-      setError(error.message || 'Error de conexión al convertir el PDF.');
-      setStatus('error');
+      setStats({ chars: data.chars, words: data.words });
+    } catch {
+      setError("Error de red. Verifica tu conexión.");
+    } finally {
+      setIsConverting(false);
     }
-  }, []);
-
-  const handleReset = useCallback(() => {
-    setStatus('idle');
-    setMarkdown('');
-    setFilename('');
-    setError('');
-  }, []);
+  };
 
   return (
-    <main className="min-h-screen bg-apple-bg text-apple-text flex flex-col antialiased">
-      <header className="apple-header px-8 py-3.5 sticky top-0 z-50 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-xl bg-apple-blue flex items-center justify-center font-bold text-white shadow-lg shadow-apple-blue/20">
-            P
-          </div>
-          <div>
-            <h1 className="text-sm font-bold text-apple-text tracking-tight leading-none">
-              PyMuPDF4LLM
-            </h1>
-            <p className="text-[9px] text-apple-text-secondary font-semibold tracking-wide uppercase mt-1">
-              PDF a Markdown para LLMs
-            </p>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50/30 to-slate-100
+                    dark:from-zinc-900 dark:via-blue-950/20 dark:to-zinc-900
+                    flex items-center justify-center p-6">
+      <MacWindow
+        title="PyMuPDF4LLM — Conversor PDF a Markdown"
+        className="w-full max-w-6xl min-h-[700px]"
+      >
+        <div className="flex flex-1 overflow-hidden">
 
-        <div className="flex items-center space-x-3">
-          <Link
-            href="/manual"
-            className="text-[10px] font-semibold text-apple-text-secondary hover:text-apple-blue transition-all"
-          >
-            Manual
-          </Link>
-          <a
-            href="https://github.com/julljoll/PyMuPDF4LLM"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[10px] text-apple-text-secondary hover:text-apple-blue transition-all"
-          >
-            GitHub
-          </a>
-          {status === 'done' && (
-            <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-              Convertido
-            </span>
-          )}
-        </div>
-      </header>
-
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 overflow-hidden">
-        {/* Panel izquierdo: Uploader / Estado */}
-        <div className="h-[calc(100vh-120px)] min-h-[500px]">
-          {status === 'idle' || status === 'uploading' ? (
-            <PdfUploader onFileSelect={handleFileSelect} disabled={status === 'uploading'} />
-          ) : status === 'converting' ? (
-            <div className="flex flex-col items-center justify-center h-full bg-apple-card border border-apple-border rounded-2xl">
-              <div className="flex flex-col items-center space-y-5">
-                <div className="w-16 h-16 rounded-2xl bg-apple-blue/10 flex items-center justify-center">
-                  <svg className="w-8 h-8 text-apple-blue animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                </div>
-                <div className="text-center space-y-1">
-                  <p className="text-sm font-semibold text-apple-text">Convirtiendo PDF...</p>
-                  <p className="text-[11px] text-apple-text-secondary">
-                    Analizando, extrayendo texto y limpiando formato
-                  </p>
-                </div>
-                <div className="w-48 h-1 bg-apple-input rounded-full overflow-hidden">
-                  <div className="h-full bg-apple-blue rounded-full animate-pulse" style={{ width: '60%' }} />
-                </div>
+          {/* ─── Panel izquierdo: Upload ──────────────────────── */}
+          <div className="w-80 flex-shrink-0 flex flex-col gap-4 p-5 border-r border-macos-border/50 glass-sidebar">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-[var(--radius-macos)] bg-macos-primary flex items-center justify-center shadow-macos-sm">
+                <FileText className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-sm font-semibold leading-tight text-macos-card-fg">PDF a Markdown</h1>
+                <p className="text-xs text-macos-muted-fg">Powered by markitdown-ts</p>
               </div>
             </div>
-          ) : status === 'error' ? (
-            <div className="flex flex-col items-center justify-center h-full bg-apple-card border border-apple-border rounded-2xl p-8">
-              <div className="w-16 h-16 rounded-2xl bg-rose-500/10 flex items-center justify-center mb-5">
-                <svg className="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
-              </div>
-              <p className="text-sm font-semibold text-rose-400 mb-1">Error en la conversión</p>
-              <p className="text-[11px] text-apple-text-secondary text-center mb-5 max-w-sm">{error}</p>
-              <button
-                onClick={handleReset}
-                className="px-4 py-1.5 text-xs font-semibold bg-apple-blue hover:bg-apple-blue-hover text-white rounded-xl transition-all"
+
+            <hr className="border-macos-border/50" />
+
+            <DropZone onFile={handleFile} isConverting={isConverting} />
+
+            <AnimatePresence>
+              {isConverting && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="flex items-center gap-2 text-sm text-macos-muted-fg overflow-hidden"
+                >
+                  <Sparkles className="w-4 h-4 text-macos-blue animate-pulse shrink-0" />
+                  Procesando documento…
+                </motion.div>
+              )}
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-start gap-2 p-3 rounded-[var(--radius-macos)] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                >
+                  <AlertCircle className="w-4 h-4 text-macos-red mt-0.5 shrink-0" />
+                  <p className="text-xs text-red-700 dark:text-red-400">{error}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {stats && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex flex-wrap gap-1.5"
               >
-                Intentar de nuevo
-              </button>
-            </div>
-          ) : null}
-        </div>
+                <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-macos-muted text-macos-muted-fg">
+                  {stats.chars.toLocaleString()} caracteres
+                </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-macos-muted text-macos-muted-fg">
+                  {stats.words.toLocaleString()} palabras
+                </span>
+                <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-macos-green/10 text-macos-green">
+                  Convertido ✓
+                </span>
+              </motion.div>
+            )}
 
-        {/* Panel derecho: Resultado / placeholder */}
-        <div className="h-[calc(100vh-120px)] min-h-[500px]">
-          {status === 'done' ? (
-            <MarkdownPreview markdown={markdown} filename={filename} onReset={handleReset} />
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full bg-apple-card border border-apple-border rounded-2xl">
-              <div className="flex flex-col items-center space-y-4 p-8 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-apple-input flex items-center justify-center">
-                  <svg className="w-8 h-8 text-apple-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <p className="text-sm font-semibold text-apple-text-secondary">
-                  Resultado Markdown
-                </p>
-                <p className="text-[11px] text-apple-text-tertiary max-w-xs">
-                  Arrastra un PDF a la izquierda para convertirlo a Markdown limpio y estructurado, listo para LLMs y RAG.
-                </p>
-              </div>
+            <hr className="border-macos-border/50" />
+
+            <div className="text-xs text-macos-muted-fg space-y-1">
+              <p className="font-medium text-macos-card-fg">Soportado</p>
+              <p>&bull; Leyes y decretos</p>
+              <p>&bull; Reglamentos</p>
+              <p>&bull; Códigos jurídicos</p>
+              <p>&bull; Documentos técnicos</p>
+              <p className="pt-2 text-[10px]">Máx. 50 MB por archivo</p>
             </div>
-          )}
+          </div>
+
+          {/* ─── Panel derecho: Preview ───────────────────────── */}
+          <div className="flex-1 overflow-hidden">
+            <AnimatePresence mode="wait">
+              {markdown ? (
+                <motion.div
+                  key="preview"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="h-full"
+                >
+                  <MarkdownPreview content={markdown} filename={currentFile} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="h-full flex flex-col items-center justify-center gap-3 text-macos-muted-fg"
+                >
+                  <div className="w-16 h-16 rounded-[var(--radius-macos-lg)] bg-macos-muted flex items-center justify-center">
+                    <FileText className="w-8 h-8 opacity-40" />
+                  </div>
+                  <p className="text-sm">Sube un PDF para ver el Markdown</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
         </div>
-      </div>
-    </main>
+      </MacWindow>
+    </div>
   );
 }

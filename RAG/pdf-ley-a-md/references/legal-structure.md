@@ -11,128 +11,97 @@ Constitución / Código
                 └── Artículo (Art. 1, 2...)
                     └── Numeral (1., 2., 3.)
                         └── Literal (a), b), c))
-                            └── Inciso (párrafo sin número)
 ```
 
-### Mapeo a encabezados Markdown
+### Mapeo a Markdown
 
-| Nivel legal | Markdown | Regex de detección |
-|---|---|---|
-| Libro | `# Libro N` | `^LIBRO\s+[IVXLC]+` |
-| Título | `# Título N` | `^TÍTULO\s+[IVXLC]+` |
-| Capítulo | `## Capítulo N` | `^CAPÍTULO\s+[IVXLC]+` |
-| Sección | `## Sección N` | `^SECCIÓN\s+\d+` |
-| Artículo | `### Artículo N` | `^Art[íi]culo\.?\s+\d+` |
-| Numeral | `1.` (lista) | `^\d+\.\s` |
-| Literal | `a)` (lista) | `^[a-z]\)\s` |
+| Nivel legal | Markdown |
+|---|---|
+| Libro / Título / Parte | `# Libro N` |
+| Capítulo / Sección | `## Capítulo N` |
+| Artículo | `### Artículo N — Título` |
+| Numeral | `1.` (lista ordenada) |
+| Literal | `a)` |
 
 ---
 
-## Tipos de documentos y estrategias
+## Tipos de documento y ajustes en `cleanLegalMarkdown()`
 
-### Ley ordinaria / Ley orgánica
+### Ley ordinaria / Decreto
 - Estructura: Título → Capítulo → Artículo
-- `table_strategy`: `"lines_strict"`
-- Riesgo: encabezados de página ("LEY N° 20.123 — ARTÍCULO 5") que contaminan el texto
-- Solución: `margins=(36, 60, 36, 60)` para un margen superior generoso
+- La función base de `route.ts` cubre este caso sin modificación.
 
 ### Código (Civil, Penal, Comercio)
-- Estructura larga: Libro → Título → Capítulo → Artículo
-- Procesar por lotes si >500 páginas: `pages=range(0,100)`
-- Alto riesgo de notas marginales en el margen izquierdo
-- Solución: `margins=(80, 54, 36, 54)` (margen izquierdo amplio)
-
-### Decreto Supremo / Decreto Reglamentario
-- Sin estructura de Libro/Título; directo a Artículos
-- Incluye vistos y considerandos antes del articulado
-- Preservar el bloque de vistos como párrafo, no como encabezado
-
-### Resolución / Circular / Instrucción
-- Estructura plana; numeración por punto (1., 1.1., 1.1.1.)
-- `table_strategy`: `"lines"` (frecuentes tablas de datos)
+- Añadir regex de Libro antes del de Título:
+```ts
+text = text.replace(
+  /^LIBRO\s+([IVXLCDM]+|\d+)\b/gim,
+  "\n# Libro $1"
+)
+```
 
 ### Diario Oficial / Boletín
-- Multi-columna casi siempre
-- `margins=(72, 72, 72, 72)`, `multi_column=True`
-- Separar cada ley por su número antes de procesar
+- markitdown-ts puede mezclar columnas. Si el texto está desordenado,
+  pre-procesar el PDF con `pdf-parse` para extraer solo la columna de texto principal.
 
-### Tratado Internacional
-- Puede tener idioma paralelo (columnas español/inglés)
-- Procesar solo páginas en español o extraer columna izquierda
+### Resolución / Circular
+- Numeración por punto (1., 1.1.). Añadir:
+```ts
+text = text.replace(
+  /^(\d+\.\d+(?:\.\d+)?)\s+/gm,
+  "\n#### $1 "
+)
+```
 
 ---
 
-## Patrones problemáticos comunes
+## Regex de detección rápida (para el API route)
 
-### Artículos con texto interrumpido por salto de página
+```ts
+// Detectar tipo de documento desde el Markdown extraído
+function detectDocType(text: string): string {
+  if (/^(CONSTITUCIÓN|CONSTITUCÍON)/im.test(text)) return "constitución"
+  if (/^(CÓDIGO|CODIGO)\s+(CIVIL|PENAL|COMERCIO)/im.test(text)) return "código"
+  if (/^LEY\s+(N[°oº]?\.?\s*)?\d+/im.test(text)) return "ley"
+  if (/^DECRETO\s+(SUPREMO|EJECUTIVO|LEY)/im.test(text)) return "decreto"
+  if (/^RESOLUCIÓN/im.test(text)) return "resolución"
+  if (/^REGLAMENTO/im.test(text)) return "reglamento"
+  return "documento jurídico"
+}
 ```
-### Artículo 15 — Obligaciones del empleador
-
-El empleador deberá proporcionar a los trabajadores los elementos
-de protección personal adecuados al trabajo que realizan y
-
----  ← separador de página
-
-mantenerlos en perfecto estado de funcionamiento...
-```
-**Solución**: post-procesar uniendo párrafos separados por `---` si la línea anterior no termina con punto.
-
-### Notas al pie con número superíndice
-```
-El contrato deberá firmarse ante notario^1^
-
----
-^1^ Ley 19.880, Art. 5°
-```
-**Solución**: el script `clean_legal_md.py` convierte a `[^1]` y agrega sección de referencias.
-
-### Tablas de aranceles / tarifas
-Usar `table_strategy="lines"` y verificar manualmente con:
-```python
-import pymupdf
-doc = pymupdf.open("ley.pdf")
-page = doc[N]
-tables = page.find_tables()
-print(f"Página {N}: {len(tables.tables)} tablas encontradas")
-```
-
-### Texto en imágenes (sellos, rúbricas, cuadros de texto)
-- PyMuPDF4LLM los ignora con `ignore_images=True`
-- Si son relevantes: `embed_images=True` y revisar manualmente
 
 ---
 
-## Validación de articulado
+## Validación de articulado (TypeScript)
 
-Script para verificar que todos los artículos fueron capturados:
+```ts
+function validateArticles(markdown: string): {
+  found: number[]
+  missing: number[]
+  lastArticle: number
+} {
+  const matches = [...markdown.matchAll(/### Artículo (\d+)/g)]
+  const nums = matches.map(m => parseInt(m[1])).sort((a, b) => a - b)
 
-```python
-import re, sys
-from pathlib import Path
+  const missing: number[] = []
+  for (let i = nums[0]; i <= nums[nums.length - 1]; i++) {
+    if (!nums.includes(i)) missing.push(i)
+  }
 
-def validate_articles(md_path: str, expected_last: int = None):
-    text = Path(md_path).read_text(encoding="utf-8")
-    articles = re.findall(r"### Artículo (\d+)", text)
-    nums = [int(n) for n in articles]
-    
-    print(f"Artículos encontrados: {len(nums)}")
-    if nums:
-        print(f"  Primero: {min(nums)}, Último: {max(nums)}")
-    
-    # Detectar saltos
-    missing = []
-    for i in range(min(nums), max(nums)+1):
-        if i not in nums:
-            missing.append(i)
-    
-    if missing:
-        print(f"  ⚠ Artículos posiblemente faltantes: {missing[:10]}")
-    else:
-        print("  ✓ Secuencia de artículos continua")
-    
-    if expected_last and max(nums) != expected_last:
-        print(f"  ⚠ Se esperaba hasta Art. {expected_last}, se encontró hasta Art. {max(nums)}")
+  return {
+    found: nums,
+    missing,
+    lastArticle: nums[nums.length - 1] ?? 0,
+  }
+}
+```
 
-if __name__ == "__main__":
-    validate_articles(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else None)
+Usar en la API route para añadir metadata de validación al response:
+```ts
+return NextResponse.json({
+  markdown: cleaned,
+  chars: cleaned.length,
+  words: cleaned.split(/\s+/).length,
+  validation: validateArticles(cleaned),  // opcional
+})
 ```
