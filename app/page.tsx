@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import Link from 'next/link';
 import { PdfUploader } from '../components/ui/PdfUploader';
 import { MarkdownPreview } from '../components/ui/MarkdownPreview';
 
@@ -67,6 +68,12 @@ export default function ConverterPage() {
         </div>
 
         <div className="flex items-center space-x-3">
+          <Link
+            href="/manual"
+            className="text-[10px] font-semibold text-apple-text-secondary hover:text-apple-blue transition-all"
+          >
+            Manual
+          </Link>
           <a
             href="https://github.com/julljoll/PyMuPDF4LLM"
             target="_blank"
