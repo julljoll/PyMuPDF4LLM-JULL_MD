@@ -1,7 +1,8 @@
 {
-  "name": "crearpdf",
-  "version": "0.1.0",
+  "name": "pymupdf4llm",
+  "version": "1.0.0",
   "private": true,
+  "description": "PDF a Markdown para LLMs — Pipeline de conversión con PyMuPDF4LLM",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
